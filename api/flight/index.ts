@@ -5,15 +5,24 @@ let token = await getToken();
 
 export default async (req: VercelRequest, res: VercelResponse) => {
     if ('error' in token) {
-        // Retry getting the token if failure is saved in memory
         token = await getToken();
     }
 
-    try {
+    if ('error' in token) {
+        res.json({ error: 'error' })
+    } else {
+        try {
+            const options: RequestInit = {
+                headers: {
+                    'Authorization': `${token['token_type']} ${token['access_token']}`
+                }
+            }
 
-    } catch (error) {
-
+            const adeusReq = await fetch('https://test.api.amadeus.com/v1/shopping/flight-destinations?departureDate=2024-03-09&origin=MAD&maxPrice=200', options)
+            res.json(await adeusReq.json())
+        } catch (error) {
+            console.log(error)
+            res.json({ error })
+        }
     }
-
-    res.json({ message: token })
 }
