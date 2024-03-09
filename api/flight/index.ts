@@ -1,12 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import getToken from './getAuthToken.js';
 
-let token = await getToken();
-
 export default async (req: VercelRequest, res: VercelResponse) => {
-    if ('error' in token) {
-        token = await getToken();
-    }
+    let token = await getToken();
 
     if ('error' in token) {
         res.json({ error: 'error' })
