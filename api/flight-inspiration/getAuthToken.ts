@@ -1,5 +1,5 @@
 
-type AmadeusOAuth2Token = {
+export type AmadeusOAuth2Token = {
     type: string;
     username: string;
     application_name: string;
