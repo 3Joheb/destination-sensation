@@ -1,20 +1,20 @@
-import { AmadeusOAuth2Token } from "./getAuthToken.js"
+import { AmadeusOAuth2Token } from "../helpers/getAuthToken.js"
 
 // Return data from Flight Inspiration API
-export default async (authToken: AmadeusOAuth2Token) => {
-    const clientParams = {
-        date: {
-            departure: '2024-03-20'
-        },
-        origin: 'MAD',
-        maxPrice: 200
-    }
-    const fetchUrl = `https://test.api.amadeus.com/v1/shopping/flight-destinations?departureDate=${clientParams.date}&origin=${clientParams.origin}&maxPrice=${clientParams.maxPrice}`
+export default async (authToken: AmadeusOAuth2Token, queryParams: any) => {
+    const fetchUrl = `https://test.api.amadeus.com/v1/shopping/flight-destinations?departureDate=${queryParams.departureDate}&origin=${queryParams.origin}&maxPrice=${queryParams.maxPrice}`
     const fetchOptions: RequestInit = {
         headers: {
             'Authorization': `${authToken['token_type']} ${authToken['access_token']}`
         }
     }
 
-    return await fetch(fetchUrl, fetchOptions);
+    const amadeusResponse = await fetch(fetchUrl, fetchOptions);
+    const responseBody = await amadeusResponse.json();
+
+    return {
+        ok: amadeusResponse.ok,
+        status: amadeusResponse.status,
+        body: responseBody
+    };
 }

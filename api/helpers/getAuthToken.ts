@@ -34,7 +34,6 @@ export default async (): Promise<AmadeusOAuth2Token | { error: any }> => {
 
         return await token.json();
     } catch (err) {
-        console.error('Amadeus fetch error', err);
         return { error: err };
     }
 }
