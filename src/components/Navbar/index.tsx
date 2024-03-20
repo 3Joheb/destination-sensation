@@ -1,8 +1,8 @@
 
-const navbar = () => {
+const Navbar = () => {
     return (
         <nav>
-            <ul>
+            <ul className="flex gap-4">
                 <li>
                     <a href="/">Sign Up</a>
                 </li>
@@ -17,4 +17,4 @@ const navbar = () => {
     )
 }
 
-export default navbar;
+export default Navbar;
