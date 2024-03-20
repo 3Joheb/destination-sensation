@@ -1,32 +1,33 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import getAuthToken from './getAuthToken.js';
-const url = 'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=PAR';
 
-const params = {
-  cityCode: 'PAR', 
-  checkInDate: '2024-03-10' 
-};
+const baseUrl = 'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city';
 
-const queryString = new URLSearchParams(params);
+export default async (req: VercelRequest, res: VercelResponse) => {
+  const auth = await getAuthToken();
+  if ("error" in auth) {
+    res.json("error");
+  } else {
+    // Extract inputted parameters from the request
+    const cityCode = req.query.cityCode[0] || ''; // Optional city code
+    const checkInDate = req.query.checkInDate[0] || ''; // Optional check-in date
 
-  export default async (req: VercelRequest, res: VercelResponse) => {
-    const auth = await getAuthToken()
-    if("error" in auth){
-      res.json("error")
-    }else{
-      const options: RequestInit = {
+    // Build the URL with optional parameters
+    const urlParams = new URLSearchParams();
+    if (cityCode) urlParams.append('cityCode', cityCode);
+    if (checkInDate) urlParams.append('checkInDate', checkInDate);
 
-        headers: {
-            'Authorization': `${auth['token_type']} ${auth['access_token']}`
-        }
-    }
-    console.log(auth)
-    const hotelReq = await fetch(`${url}`,options)
-    const hotelData = await hotelReq.json(); 
-    
-    //const hotelNames = hotelData.data.map(hotel => hotel.name);
-  
+    const url = `${baseUrl}?${urlParams.toString()}`;
+
+    const options: RequestInit = {
+      headers: {
+        'Authorization': `${auth['token_type']} ${auth['access_token']}`
+      }
+    };
+
+    const hotelReq = await fetch(url, options);
+    const hotelData = await hotelReq.json();
+
     res.json({ hotels: hotelData });
-    }
-    
-  };
+  }
+};
