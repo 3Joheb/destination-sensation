@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import getToken from '../helpers/getAuthToken.js';
-import getFlightsInspo from './getFlightsInspo.js';
+import getToken from '../helpers/getAuthToken';
+import getFlightsInspo from './getFlightsInspo';
 
 export default async (req: VercelRequest, res: VercelResponse) => {
     let token = await getToken();
