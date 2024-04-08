@@ -2,11 +2,13 @@
 
 
 const getAirportCountryCode = async (IATA: string) => {
+    const key = process.env.IATA_API_KEY
+
     const url = `https://aviation-reference-data.p.rapidapi.com/airports/${IATA}`;
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '640916e48dmsh8aca8392f9ffe83p147ae6jsn87e3ea1edbf5',
+            'X-RapidAPI-Key': `${key}`,
             'X-RapidAPI-Host': 'aviation-reference-data.p.rapidapi.com'
         }
     };
@@ -23,6 +25,7 @@ const getAirportCountryCode = async (IATA: string) => {
 }
 
 const getCountryName = async (IATA: string)=> {
+    const key = process.env.IATA_API_KEY
     const ISO = await getAirportCountryCode(IATA)
 
     if(!ISO){
@@ -33,7 +36,7 @@ const getCountryName = async (IATA: string)=> {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '640916e48dmsh8aca8392f9ffe83p147ae6jsn87e3ea1edbf5',
+            'X-RapidAPI-Key': `${key}`,
             'X-RapidAPI-Host': 'aviation-reference-data.p.rapidapi.com'
         }
     };

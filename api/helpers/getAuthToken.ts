@@ -13,8 +13,8 @@ export type AmadeusOAuth2Token = {
 
 export default async (): Promise<AmadeusOAuth2Token | { error: any }> => {
     const formData = new URLSearchParams({
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
+        client_id: process.env.AMADEUS_KEY,
+        client_secret: process.env.AMADEUS_SECRET,
         grant_type: 'client_credentials',
     } as Record<string, string>);
 
