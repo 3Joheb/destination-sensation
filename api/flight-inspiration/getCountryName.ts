@@ -1,3 +1,4 @@
+import CustomErrorHandler from "../utils/CustomErrorHandler.js";
 
 const getAirportCountryCode = async (IATA: string) => {
     const key = process.env.IATA_API_KEY
@@ -11,23 +12,21 @@ const getAirportCountryCode = async (IATA: string) => {
         }
     };
 
-    // Initialize error object
-    let errorObj: { error?: {}, code?: number, message?: string, data?: {} } = {};
+    // Initialise error handler
+    const errorHandler = new CustomErrorHandler();
 
     try {
         const response = await fetch(url, options);
-        if (!response.ok) {
-            const error = new Error()
-            errorObj = { code: response.status, message: response.statusText }
-            throw error;
-        }
+        errorHandler.checkResponse(response)
 
         const result = await response.json();
+        errorHandler.checkKeys(result, ['alpha2countryCode'])
+
         return result.alpha2countryCode
     } catch (error) {
-        errorObj.error = error
-        console.error('Error fetching airport country code', errorObj);
-        return null
+        // Log and handle errors
+        errorHandler.logError('Error fetching airport country code:', error as undefined | string)
+        return null;
     }
 }
 
@@ -48,24 +47,21 @@ const getCountryName = async (IATA: string) => {
         }
     };
 
-    // Initialize error object
-    let errorObj: { error?: {}, code?: number, message?: string, data?: {} } = {};
+    // Initialise error handler
+    const errorHandler = new CustomErrorHandler();
 
     try {
         const response = await fetch(url, options);
-        if (!response.ok) {
-            const error = new Error()
-            errorObj = { code: response.status, message: response.statusText }
-            throw error;
-        }
+        errorHandler.checkResponse(response)
 
         const result = await response.json();
-        console.log(result)
+        errorHandler.checkKeys(result, ['name'])
+
         return result.name
     } catch (error) {
-        errorObj.error = error
-        console.error('Error fetching country name', errorObj);
-        return null
+        // Log and handle errors
+        errorHandler.logError('Error fetching country name:', error as undefined | string)
+        return null;
     }
 }
 

@@ -62,7 +62,7 @@ export default class CustomErrorHandler {
     /**
      * Logs an error message along with the error object.
      * @param {string} message - The error message to log.
-     * @param {string} [error] - The error message to include in the error object.
+     * @param {string} [error] - Pass "try...catch error" to include stack & scope errors.
      */
     public logError(message: string, error?: string): void {
         this.errorObj.error = error;
