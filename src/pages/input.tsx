@@ -9,10 +9,11 @@ const Input = () => {
         const [destination,setDestination]=useState('');
         const [startDate,setStartDate]=useState(new Date());
         const [endDate,setEndDate]=useState(new Date());
+        const [budget,setBudget] =useState(0);
 
         const handleSubmit = (e: { preventDefault: () => void }) => {
             e.preventDefault();
-            console.log('From Submitted:',{name,destination,startDate,endDate});
+            console.log('From Submitted:',{name,destination,startDate,endDate,budget});
         };
 
 
@@ -55,7 +56,23 @@ const Input = () => {
                                 dateFormat ="dd/mm/yyyy"
                                 />
                                 </div>
-                                <button type="submit">Submit</button>
+                              
+                        <div>
+                            <label htmlFor="budget">Budget (0-10,00):</label>
+                            <input
+                                type="range"
+                                id="budget"
+                                min={0}
+                                max={10000}
+                                value={budget}
+                                onChange={(e) => setBudget(parseInt(e.target.value))} 
+                                />
+                                <p>{budget}</p>
+
+
+
+                        </div>
+                        <button type="submit">Submit</button>
             </form>
 
                 
