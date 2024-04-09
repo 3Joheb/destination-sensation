@@ -1,3 +1,5 @@
+import CustomErrorHandler from "../utils/CustomErrorHandler.js";
+
 /**
  * Function to fetch country images from the Pixabay API.
  * 
@@ -11,60 +13,35 @@ const getCountryImage = async (country: string): Promise<object | null> => {
     // Construct URL for Pixabay API request
     const url = `https://pixabay.com/api/?key=${key}&q=${country}&image_type=photo&category=travel&per_page=3`;
 
-    // Initialize error object
-    let errorObj: { error?: {}, code?: number, message?: string, data?: {} } = {};
+    // Initialise error handler
+    const errorHandler = new CustomErrorHandler();
 
     try {
         // Fetch data from the Pixabay API
         const response = await fetch(url);
-
-        // Handle response error
-        if (!response.ok) {
-            console.log('test')
-            const error = new Error()
-            errorObj = { code: response.status, message: response.statusText }
-            throw error;
-        }
+        errorHandler.checkResponse(response);
 
         const result = await response.json();
-
         const imgData = result.hits[0]; // Undefined if no image
 
-        // Handle custom errors
         if (!imgData) { // Check if image data exists
-            const error = new Error()
-            errorObj = {
+            errorHandler.setCustomError({
                 message: 'No images found on keyword',
                 data: { hits: 0, search_keyword: country },
-            }
-            throw error;
-        } else if (!imgData.webformatURL && !imgData.pageURL) { // Ensure keys exist
-            const error = new Error()
-            errorObj = {
-                message: "Filter key's not found",
-                data: {
-                    format_keys_found: false,
-                    keys: {
-                        webformatURL: imgData.webformatURL,
-                        pageURL: imgData.pageURL
-                    }
-                }
-            }
-            throw error;
+            })
         }
 
-        // Extract relevant image data and return
-        const filteredResult = {
+        errorHandler.checkKeys(imgData, ['webformatURL', 'pageURL'])
+
+        // Return relevant image data and return
+        return {
             imageHotlink: imgData.webformatURL,
             redirectLink: imgData.pageURL,
             tags: imgData.tags
         };
-
-        return filteredResult;
     } catch (error) {
         // Log and handle errors
-        errorObj.error = error
-        console.error('Error fetching country image:', errorObj);
+        errorHandler.logError('Error fetching country image:', error as undefined | string)
         return null;
     }
 }
