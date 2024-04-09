@@ -1,15 +1,15 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import getToken from '../helpers/getAuthToken.js';
 import getFlightsInspo from './getFlightsInspo.js';
-import getCountryName from './getCountryName.js';
+import getCountryFromIATA from './getCountryFromIATA.js';
 import getCountryImage from './getCountryImage.js'
 
 const expectedParams = ['departureDate', 'origin', 'maxPrice']
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-    const c = await getCountryName('MAD')
-    const i = await getCountryImage('Spaindadwafasfsdf')
-    res.send(i)
+    const c = await getCountryFromIATA('MAD')
+    const i = await getCountryImage('Spain')
+    res.send(c)
 
     // let token = await getToken();
     const token = {}
