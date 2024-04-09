@@ -21,8 +21,19 @@ export default async (queryParams: any) => {
 
         const result = await response.json();
 
-        return result;
+        // Assume other objects have / don't have those keys
+        errorHandler.checkKeys(result.data[0], ['destination', 'price', 'departureDate', 'returnDate'])
 
+        const filteredData = result.data.map((obj: any) => {
+            return {
+                iata: obj.destination,
+                price: obj.price.total,
+                departureDate: obj.departureDate,
+                returnDate: obj.returnDate
+            }
+        })
+
+        return filteredData;
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching flight inspiration:', error as undefined | string)
