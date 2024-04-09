@@ -11,36 +11,60 @@ const getCountryImage = async (country: string): Promise<object | null> => {
     // Construct URL for Pixabay API request
     const url = `https://pixabay.com/api/?key=${key}&q=${country}&image_type=photo&category=travel&per_page=3`;
 
+    // Initialize error object
+    let errorObj: { error?: {}, code?: number, message?: string, data?: {} } = {};
+
     try {
         // Fetch data from the Pixabay API
         const response = await fetch(url);
+
+        // Handle response error
+        if (!response.ok) {
+            console.log('test')
+            const error = new Error()
+            errorObj = { code: response.status, message: response.statusText }
+            throw error;
+        }
+
         const result = await response.json();
 
-        // Check if image data exists
-        const imgData = result.hits[0];
+        const imgData = result.hits[0]; // Undefined if no image
 
-        // Handle response errors and missing image data
-        if (!response.ok) {
-            const errorMsg = result.error || '';
-            throw new Error(errorMsg);
-        } else if (!imgData) {
-            throw new Error(`0 hits: Search Keyword = ${country}`);
-        } else if (imgData.webformatURL && imgData.pageURL) { // Ensure keys exist
-            // Extract relevant image data and return
-            const filteredResult = {
-                imageHotlink: imgData.webformatURL,
-                redirectLink: imgData.pageURL,
-                tags: imgData.tags
-            };
-
-            return filteredResult;
-        } else {
-            throw new Error(`Required keys are undefined or null`);
+        // Handle custom errors
+        if (!imgData) { // Check if image data exists
+            const error = new Error()
+            errorObj = {
+                message: 'No images found on keyword',
+                data: { hits: 0, search_keyword: country },
+            }
+            throw error;
+        } else if (!imgData.webformatURL && !imgData.pageURL) { // Ensure keys exist
+            const error = new Error()
+            errorObj = {
+                message: "Filter key's not found",
+                data: {
+                    format_keys_found: false,
+                    keys: {
+                        webformatURL: imgData.webformatURL,
+                        pageURL: imgData.pageURL
+                    }
+                }
+            }
+            throw error;
         }
+
+        // Extract relevant image data and return
+        const filteredResult = {
+            imageHotlink: imgData.webformatURL,
+            redirectLink: imgData.pageURL,
+            tags: imgData.tags
+        };
+
+        return filteredResult;
     } catch (error) {
         // Log and handle errors
-        console.error('Error fetching country image:', error.message);
-        console.error('Stack trace:', error.stack);
+        errorObj.error = error
+        console.error('Error fetching country image:', errorObj);
         return null;
     }
 }
