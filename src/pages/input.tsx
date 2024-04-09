@@ -1,7 +1,8 @@
-import { StrictMode, useState } from "react"
-import DatePicker from "react-datepicker"
+import {useState } from "react"
+import DatePicker from"react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import "./index.css"
-import 'react-datepicker/dist/react-datepicker.css'
+
 
 const Input = () => {
         const [name,setName] = useState('');
@@ -9,7 +10,7 @@ const Input = () => {
         const [startDate,setStartDate]=useState(new Date());
         const [endDate,setEndDate]=useState(new Date());
 
-        const handleSubmit = (e) => {
+        const handleSubmit = (e: { preventDefault: () => void }) => {
             e.preventDefault();
             console.log('From Submitted:',{name,destination,startDate,endDate});
         };
@@ -19,12 +20,12 @@ const Input = () => {
         <div>
 
             <h2> PLEASE ENTER DETAILS BELOW TO MAKE YOUR DREAM HOLIDAY </h2>
-            <from onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="name">Name</label>
                         <input
                         type="text"
-                        id="name"
+                        id="name" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         />
@@ -40,9 +41,22 @@ const Input = () => {
                         </div>
                         <div>
                             <label htmlFor="startDate">StartDate</label>
-
-                </div>
-            </from>
+                            <DatePicker
+                                selected ={startDate}
+                                onChange ={(date:Date|null) => date!== null && setStartDate(date)}
+                                dateFormat = "dd/mm/yyyy"
+                                />
+                                </div>
+                        <div> 
+                            <label htmlFor="endDate">EndDate</label>
+                            <DatePicker
+                                selected ={endDate}
+                                onChange ={(date:Date|null) => date!== null && setEndDate(date)}
+                                dateFormat ="dd/mm/yyyy"
+                                />
+                                </div>
+                                <button type="submit">Submit</button>
+            </form>
 
                 
         
