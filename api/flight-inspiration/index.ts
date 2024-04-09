@@ -8,7 +8,7 @@ const expectedParams = ['departureDate', 'origin', 'maxPrice']
 
 export default async (req: VercelRequest, res: VercelResponse) => {
     const c = await getCountryName('MAD')
-    const i = await getCountryImage('awfwadsadawdadasfasdf')
+    const i = await getCountryImage('Spain')
     res.send(i)
 
     // let token = await getToken();
