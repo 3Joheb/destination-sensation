@@ -1,50 +1,21 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import getToken from '../helpers/getAuthToken.js';
-import getFlightsInspo from './getFlightsInspo.js';
-import getCountryFromIATA from './getCountryFromIATA.js';
-import getCountryImage from './getCountryImage.js'
-
-const expectedParams = ['departureDate', 'origin', 'maxPrice']
+import getFlightInspo from './getFlightInspo.js'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-    const c = await getCountryFromIATA('MAD')
-    const i = await getCountryImage('Spain')
-    res.send(c)
 
-    // let token = await getToken();
-    const token = {}
-
-    if ('error' in token) {
-        res.status(500).send('Internal Server Error')
-    } else {
-        try {
-            // const { departureDate, origin, maxPrice } = { departureDate: '2024-03-20', origin: 'MAD', maxPrice: '200' }
-            const { departureDate, origin, maxPrice } = req.query
-            let clientReq = {
-                departureDate,
-                origin,
-                maxPrice
-            }
-
-            /*            getFlightsInspo(token, clientReq)
-                            .then(flightRes => {
-                                if (!flightRes.ok) { // Amadeus fetch failed
-                                    return res.status(400).json({ // Send error back to client
-                                        error: {
-                                            message: 'An Error Occured with our Flight API',
-                                            code: 400,
-                                            details: flightRes.body.errors
-                                        }
-                                    })
-                                }
-            
-                                return res.json(flightRes.body)
-                            })
-                            .catch((error) => res.status(500).json({ error })) */
-
-
-        } catch (error) {
-            res.status(500).json({ error })
+    try {
+        // const { departureDate, origin, maxPrice } = { departureDate: '2024-03-20', origin: 'MAD', maxPrice: '200' }
+        const { departureDate, origin, maxPrice } = req.query
+        let clientReq = {
+            departureDate,
+            origin,
+            maxPrice
         }
+
+        const flightInspo = await getFlightInspo(clientReq)
+
+        res.send(flightInspo)
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' })
     }
 }

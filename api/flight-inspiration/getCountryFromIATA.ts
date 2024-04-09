@@ -5,7 +5,7 @@ import CustomErrorHandler from "../utils/CustomErrorHandler.js";
  * @param {string} IATA - The IATA code of the airport.
  * @returns {Promise<string | null>} The ISO country code, or null if an error occurs.
  */
-const getAirportCountryCode = async (IATA: string): Promise<string | null> => {
+const getAirportCountryCode = async (IATA: string): Promise<string> => {
     const key = process.env.IATA_API_KEY;
     const url = `https://aviation-reference-data.p.rapidapi.com/airports/${IATA}`;
     const options = {
@@ -30,7 +30,7 @@ const getAirportCountryCode = async (IATA: string): Promise<string | null> => {
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching airport country code:', error as undefined | string);
-        return null;
+        throw new Error();
     }
 }
 
@@ -39,7 +39,7 @@ const getAirportCountryCode = async (IATA: string): Promise<string | null> => {
  * @param {string} ISO - The ISO country code.
  * @returns {Promise<string | null>} The country name, or null if an error occurs.
  */
-const getCountryName = async (ISO: string): Promise<string | null> => {
+const getCountryName = async (ISO: string): Promise<string> => {
     const key = process.env.IATA_API_KEY;
     const url = `https://aviation-reference-data.p.rapidapi.com/countries/${ISO}`;
     const options = {
@@ -64,7 +64,7 @@ const getCountryName = async (ISO: string): Promise<string | null> => {
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching country name:', error as undefined | string);
-        return null;
+        throw new Error()
     }
 }
 
@@ -73,12 +73,11 @@ const getCountryName = async (ISO: string): Promise<string | null> => {
  * @param {string} IATA - The IATA code of the airport.
  * @returns {Promise<string | null>} The country name, or null if an error occurs.
  */
-const getCountryFromIATA = async (IATA: string): Promise<string | null> => {
-    const ISO = await getAirportCountryCode(IATA);
-    if (!ISO) return null;
-
-    const countryName = await getCountryName(ISO);
-    return countryName || null;
+export default async (IATA: string): Promise<string> => {
+    try {
+        const ISO = await getAirportCountryCode(IATA);
+        return await getCountryName(ISO);
+    } catch (error) {
+        throw new Error();
+    }
 }
-
-export default getCountryFromIATA;

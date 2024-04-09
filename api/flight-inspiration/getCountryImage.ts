@@ -6,7 +6,7 @@ import CustomErrorHandler from "../utils/CustomErrorHandler.js";
  * @param {string} country - The name of the country to search images for.
  * @returns {Promise<Object | null>} - A promise resolving to an object containing image data, or null if an error occurs.
  */
-const getCountryImage = async (country: string): Promise<object | null> => {
+export default async (country: string): Promise<object | null> => {
     // Retrieve Pixabay API key from environment variables
     const key = process.env.PIXABAY_KEY;
 
@@ -42,8 +42,6 @@ const getCountryImage = async (country: string): Promise<object | null> => {
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching country image:', error as undefined | string)
-        return null;
+        throw new Error()
     }
 }
-
-export default getCountryImage;
