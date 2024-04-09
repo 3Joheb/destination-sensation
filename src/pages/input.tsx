@@ -10,10 +10,11 @@ const Input = () => {
         const [startDate,setStartDate]=useState(new Date());
         const [endDate,setEndDate]=useState(new Date());
         const [budget,setBudget] =useState(0);
+        const [numberOfPeople,setNumberOfPeople] =useState(1);
 
         const handleSubmit = (e: { preventDefault: () => void }) => {
             e.preventDefault();
-            console.log('From Submitted:',{name,destination,startDate,endDate,budget});
+            console.log('From Submitted:',{name,destination,startDate,endDate,budget,numberOfPeople});
         };
 
 
@@ -70,6 +71,21 @@ const Input = () => {
                                 <p>{budget}</p>
 
 
+
+                        </div>
+                        <label htmlFor="numberOfPeople">Number Of People (1-8):</label>
+                            <select
+                            id="numberOfPeople"
+                            value={numberOfPeople}
+                            onChange={(e) => setNumberOfPeople(parseInt(e.target.value))}
+                            >
+                                {Array.from({length : 8} ,(_,i) => i+1).map ((num) => (
+                                    <option key={num} value={num}>{num}</option>
+                                ))}
+                                </select>
+
+
+                        <div> 
 
                         </div>
                         <button type="submit">Submit</button>
