@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { DocumentData, doc, getDoc, getFirestore, connectFirestoreEmulator } from 'firebase/firestore'; // Add this import for Firestore
+import { doc, getDoc, getFirestore } from 'firebase/firestore'; // Add this import for Firestore
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -14,14 +14,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-connectFirestoreEmulator(db, 'localhost', 8080);
+
+interface dataSchema {
+    city?: string,
+    country: string,
+    iata: string,
+    iso: string,
+    name: string,
+    subd: string
+}
 
 /**
  * Retrieves an airport document from Firestore.
- * @param {string} iataCode - The IATA code of the airport.
+ * @param {string[]} iataCodes - The IATA codes of the airport.
  * @returns {Promise<object[]>} The airport document data or null if not found.
  */
-export default async (iataCodes: string[]): Promise<DocumentData | null> => {
+export default async (iataCodes: string[]): Promise<Array<dataSchema | null>> => {
 
     try {
         const airportRefs = iataCodes.map(iataCode => doc(db, 'airports', iataCode));
@@ -30,13 +38,13 @@ export default async (iataCodes: string[]): Promise<DocumentData | null> => {
         const airports = airportSnapshots.map((airportSnapshot) => {
             console.log(airportSnapshot.exists())
             if (!airportSnapshot.exists()) {
-                throw new Error()
+                return null
             } else {
                 return airportSnapshot.data()
             }
         })
 
-        return airports
+        return airports as dataSchema[]
     } catch (error) {
         console.error('Error fetching airport from Firestore:', error);
         throw error;
