@@ -12,16 +12,22 @@ interface returnType {
  * @param {string} country - The name of the country to search images for.
  * @returns {Promise<Object | null>} - A promise resolving to an object containing image data, or null if an error occurs.
  */
-export default async (country: string, city?: string, subdivision?: string): Promise<returnType> => {
+const getCountryImage = async (country: string, city?: string, subdivision?: string): Promise<returnType> => {
     // Retrieve Pixabay API key from environment variables
     const key = process.env.PIXABAY_KEY;
 
     // Ensure strings have no spaces
-    country = country.replace(/ /g, '_')
-    city = city ? city?.replace(/ /g, '_') : subdivision?.replace(/ /g, '_')
+    country = encodeURIComponent(country);
+    subdivision = subdivision ? encodeURIComponent(subdivision) : ''
+    city = city ? encodeURIComponent(city) : subdivision;
 
     // Construct URL for Pixabay API request
-    const url = `https://pixabay.com/api/?key=${key}&q=${city}+${subdivision}+${country}&image_type=photo&category=travel&per_page=3`;
+    const baseUrl = 'https://pixabay.com/api/';
+    const query = `${country}+${subdivision}`
+    const colors = `grayscale`
+    const category = `landscape`
+
+    const url = `${baseUrl}?key=${key}&q=${query}&category=${category}&colors${colors}`;
 
     // Initialise error handler
     const errorHandler = new CustomErrorHandler();
@@ -35,6 +41,7 @@ export default async (country: string, city?: string, subdivision?: string): Pro
         const imgData = result.hits[0]; // Undefined if no image
 
         if (!imgData) { // Check if image data exists
+
             errorHandler.setCustomError({
                 message: 'No images found on url',
                 data: { hits: 0, url },
@@ -55,3 +62,5 @@ export default async (country: string, city?: string, subdivision?: string): Pro
         throw new Error()
     }
 }
+
+export default getCountryImage

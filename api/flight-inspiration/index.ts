@@ -22,16 +22,21 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     // Fetch data and send to client 
     try {
+        console.log('---')
+        console.log('1. Getting flight inspiration')
+
         // Fetch flight inspiration
         const flightInspo = await getFlightInspo(departureDate as string, origin as string, maxPrice as string)
-        console.log('1. Got flight inspiration... getting airport data')
+        console.log('2. Got flight inspiration... getting airport data')
+
+        flightInspo.splice(3)
 
         // Fetch airport details
         const iataCodes = flightInspo.map((holiday) => {
             return holiday.iata
         })
         const airportsData = await getAirportsData(iataCodes)
-        console.log('2. Got airport data... getting images')
+        console.log('3. Got airport data... getting images')
 
         // Fetch location images in parallel
         const imageDataPromises = airportsData.map((airport) => {
@@ -40,7 +45,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             return getCountryImage(airport.country, airport.city, airport.subd)
         })
         const imagesData = await Promise.all(imageDataPromises)
-        console.log('3. Got images... constructing response')
+        console.log('4. Got images... sending client response')
+        console.log('---')
 
         // Construct client response
         const clientResponse = flightInspo.map((holiday: any, i: number) => {
@@ -56,11 +62,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 holiday.image.hot_link = image.imageHotlink
                 holiday.image.redirect = image.redirectLink
 
+                holiday.image.tags = image.tags
+
                 return holiday
             }
         })
-
-        console.log('4. Constructed response... sending to client')
 
         res.status(200).json(clientResponse)
     } catch (error) {
