@@ -3,7 +3,6 @@ import DatePicker from"react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import "./index.css"
 
-
 const Input = () => {
         const [name,setName] = useState('');
         const [destination,setDestination]=useState('');
