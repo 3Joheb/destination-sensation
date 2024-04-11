@@ -24,43 +24,43 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     try {
         // Fetch flight inspiration
         const flightInspo = await getFlightInspo(departureDate as string, origin as string, maxPrice as string)
-        console.log('Got flight inspiration... getting airport data')
+        console.log('1. Got flight inspiration... getting airport data')
 
         // Fetch airport details
-        const iataCodes = flightInspo.map((location) => {
-            return location.iata
+        const iataCodes = flightInspo.map((holiday) => {
+            return holiday.iata
         })
         const airportsData = await getAirportsData(iataCodes)
-        console.log('Got airport data... getting images')
+        console.log('2. Got airport data... getting images')
 
         // Fetch location images in parallel
         const imageDataPromises = airportsData.map((airport) => {
-            if (!airport) return
+            if (!airport) return null
 
             return getCountryImage(airport.country, airport.city, airport.subd)
         })
         const imagesData = await Promise.all(imageDataPromises)
-        console.log('Got images... constructing response')
+        console.log('3. Got images... constructing response')
 
         // Construct client response
-        const clientResponse = [...flightInspo] as any
-        clientResponse.forEach((holiday: any, i: number) => {
-            console.log(true)
+        const clientResponse = flightInspo.map((holiday: any, i: number) => {
             const airport = airportsData[i]
             const image = imagesData[i]
 
-            if (!airport) {
-                clientResponse.splice(i, 1)
-                return
-            }
+            if (airport && image) {
+                holiday.destination = {}
+                holiday.image = {}
+                holiday.destination.country = airport.country
+                holiday.destination.city = airport.city
+                holiday.destination.subdivision = airport.subd
+                holiday.image.hot_link = image.imageHotlink
+                holiday.image.redirect = image.redirectLink
 
-            holiday.destination.city = airport.city ? airport.city : airport.subd
-            holiday.destination.country = airport.country
-            holiday.image.hot_link = image?.imageHotlink
-            holiday.image.redirect = image?.redirectLink
+                return holiday
+            }
         })
 
-        console.log('Constructed response... sending to client')
+        console.log('4. Constructed response... sending to client')
 
         res.status(200).json(clientResponse)
     } catch (error) {
