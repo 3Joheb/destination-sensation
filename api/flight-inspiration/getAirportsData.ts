@@ -36,7 +36,6 @@ export default async (iataCodes: string[]): Promise<Array<dataSchema | null>> =>
         const airportSnapshots = await Promise.all(airportRefs.map(airportRef => getDoc(airportRef)));
 
         const airports = airportSnapshots.map((airportSnapshot) => {
-            console.log(airportSnapshot.exists())
             if (!airportSnapshot.exists()) {
                 return null
             } else {

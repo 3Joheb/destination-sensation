@@ -16,6 +16,10 @@ export default async (country: string, city?: string, subdivision?: string): Pro
     // Retrieve Pixabay API key from environment variables
     const key = process.env.PIXABAY_KEY;
 
+    // Ensure strings have no spaces
+    country = country.replace(/ /g, '_')
+    city = city ? city?.replace(/ /g, '_') : subdivision?.replace(/ /g, '_')
+
     // Construct URL for Pixabay API request
     const url = `https://pixabay.com/api/?key=${key}&q=${city}+${subdivision}+${country}&image_type=photo&category=travel&per_page=3`;
 
@@ -32,8 +36,8 @@ export default async (country: string, city?: string, subdivision?: string): Pro
 
         if (!imgData) { // Check if image data exists
             errorHandler.setCustomError({
-                message: 'No images found on keyword',
-                data: { hits: 0, search_keyword: country },
+                message: 'No images found on url',
+                data: { hits: 0, url },
             })
         }
 
