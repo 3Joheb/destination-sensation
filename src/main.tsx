@@ -1,10 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import Input from "./pages/input"
+import LoginSignup from "./components/LoginSignup/LoginSignup"
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <Input/>
+        <LoginSignup/>
     </React.StrictMode>
 )

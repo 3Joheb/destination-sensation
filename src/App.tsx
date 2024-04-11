@@ -3,12 +3,14 @@ import beachImg from "./assets/beach.jpg"
 import cabinImg from "./assets/cabin.jpg"
 import winterImg from "./assets/winter.jpg"
 import Navbar from "./components/Navbar"
+import Card from "./components/Card"
 
 const App = () => {
 
     return (
         <div>
             <Navbar />
+            <Card destination="Spain" price="500" departuredate="15" returndate="25" />
 
             <div>WELCOME</div>
 
