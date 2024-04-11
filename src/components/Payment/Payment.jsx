@@ -4,36 +4,38 @@ import name_icon from '../../assets/name.jpg'
 import email_icon from '../../assets/email.jpg'
 import password_icon from '../../assets/password.jpg'
 
-const LoginSignup = () => {
-
-    const [action] = useState("Sign Up");
+const Payment = () => {
 
     return (
         <div className = 'container'>
         <div className = "header">
-        <div className="text">{action}</div>
+        <div className="text">Payment</div>
         <div className="underline"></div>    
                 </div>
+                <div className="inputs">
          <div className="input">
         <img src={name_icon} alt="" />
-        <input type="name" placeholder='Name'/>
+        <input type="Full name" placeholder='Full name'/>
         </div>
          <div className="input">
         <img src={email_icon} alt="" />
-        <input type="email" placeholder='Email Address'/>
+        <input type="Card number" placeholder='Card number'/>
         </div>
          <div className="input">
         <img src={password_icon} alt="" />
-        <input type="password" placeholder='Password' />
+        <input type="Expiry date" placeholder='Expiry Date' />
         </div>
-        <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
+        <div className="input">
+        <img src={password_icon} alt="" />
+        <input type="Security number" placeholder='Security Number' />
+        </div>
         <div className="submit-container">
-            <div className="submit">Signup</div>
-            <div className="submit">Login</div>
-        </div>
+            <div className="submit">Pay Now</div>
    </div>
-
+   </div>
+   </div>
+   
     )
 }
 
-export default LoginSignup 
+export default Payment
