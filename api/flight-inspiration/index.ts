@@ -62,7 +62,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 holiday.image.hot_link = image.imageHotlink
                 holiday.image.redirect = image.redirectLink
 
-                holiday.image.tags = image.tags
+                holiday.image.tags = image.tags // Remove in prod
 
                 return holiday
             }
