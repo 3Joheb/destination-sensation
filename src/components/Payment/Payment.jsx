@@ -1,7 +1,6 @@
 
 
 import name_icon from '../../assets/name.jpg'
-import email_icon from '../../assets/email.jpg'
 import password_icon from '../../assets/password.jpg'
 
 const Payment = () => {
@@ -18,7 +17,7 @@ const Payment = () => {
         <input type="Full name" placeholder='Full name'/>
         </div>
          <div className="input">
-        <img src={email_icon} alt="" />
+        <img src={password_icon} alt="" />
         <input type="Card number" placeholder='Card number'/>
         </div>
          <div className="input">
