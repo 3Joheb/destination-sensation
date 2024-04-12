@@ -36,7 +36,7 @@ export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
         return cleanActData
     } catch (error) {
         // Log and handle errors
-        errorHandler.logError('Error fetching activities:', error)
+        errorHandler.logError('Error fetching activities:', error as undefined | string)
         throw new Error();
     }
 };

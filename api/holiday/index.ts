@@ -20,6 +20,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         })
     } catch (error) {
         res.status(400).json({ code: 400, error: 'Invalid query parameters: at least one of the required parameters is missing or in an incorrect format.' })
+        return
     }
 
     // Fetch data and send to client 

@@ -40,7 +40,7 @@ export default async (
         errorHandler.checkKeys(hotelsData[0], ['hotelId', 'name', 'latitude', 'longitude', 'offers']);
 
         // Sanitize data and return an array of hotel data
-        const cleanHotelsData = hotelsData.map(({ hotel, available, offers }) => {
+        const cleanHotelsData = hotelsData.map(({ hotel, available, offers }: any) => {
             if (!available) return
             const hotelInfo = {
                 hotelId: hotel.hotelId,
