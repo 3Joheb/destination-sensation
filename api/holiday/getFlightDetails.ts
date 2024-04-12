@@ -25,14 +25,18 @@ export default async (
         errorHandler.checkResponse(response)
 
         const result = await response.json();
-        const data = result.data[0]
-        errorHandler.checkKeys(data, ['lastTicketingDate', 'itineraries', 'price'])
+        const data = result.data
+        errorHandler.checkKeys(data[0], ['lastTicketingDate', 'itineraries', 'price'])
 
-        return {
-            itineraries: data.itineraries,
-            price: data.price.total,
-            last_date: data.lastTicketingDate
-        } as { itineraries: {}, price: string }
+        const cleanData = data.map((flight: any) => {
+            return {
+                itineraries: flight.itineraries,
+                price: flight.price.total,
+                last_date: flight.lastTicketingDate
+            }
+        })
+
+        return cleanData;
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching flight details:', error as undefined | string)
