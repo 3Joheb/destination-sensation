@@ -2,24 +2,24 @@ import "./index.css"
 import beachImg from "./assets/beach.jpg"
 import cabinImg from "./assets/cabin.jpg"
 import winterImg from "./assets/winter.jpg"
-import Navbar from "./components/Navbar"
+import Navbar from "./navbar/navbar"
 import Card from "./components/Card"
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Input from "./pages/input"
+import LoginSignup from "./components/LoginSignup/LoginSignup"
 
 const App = () => {
 
     return (
         <div>
-            <Navbar />
             <Card destination="Spain" price="500" departuredate="15" returndate="25" />
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Navbar />}>
                         <Route index element={<App />} />
                         <Route path="input" element={<Input />} />
-
+                        <Route path="LoginSignup" element={<LoginSignup />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
@@ -34,6 +34,10 @@ const App = () => {
                 <img src={beachImg} alt="" />
                 <img src={cabinImg} alt="" />
                 <img src={winterImg} alt="" />
+            </div>
+
+            <div>
+                <LoginSignup />
             </div>
 
             <p></p>
