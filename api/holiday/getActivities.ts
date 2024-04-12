@@ -6,7 +6,7 @@ export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
     const baseUrl = 'https://test.api.amadeus.com/v1/shopping/activities?';
 
     // Build the URL with inputted parameters
-    const url = `${baseUrl}?longitude=${lon}&latitude=${lat}&radius=10`;
+    const url = `${baseUrl}?longitude=${lon}&latitude=${lat}&radius=20`;
 
     const options: RequestInit = {
         headers: {
@@ -21,7 +21,7 @@ export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
         errorHandler.checkResponse(actReq);
 
         const actData = await actReq.json();
-        errorHandler.checkKeys(actData[0], ['lastTicketingDate', 'itineraries', 'price'])
+        errorHandler.checkKeys(actData[0], ['name', 'geoCode', 'rating', 'pictures', 'price'])
 
         const cleanActData = actData.map((act: any) => {
             return {

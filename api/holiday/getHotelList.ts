@@ -34,7 +34,7 @@ export default async (auth: AmadeusOAuth2Token, cityCode: string) => {
             return hotel.hotelId
         })
 
-        return cleanHotelsData
+        return cleanHotelsData as string[]
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching hotel list:', error as undefined | string)
