@@ -27,14 +27,18 @@ export default async (auth: AmadeusOAuth2Token, cityCode: string) => {
         const hotelsData = hotelResult.data;
 
         // Assume other objects follow same schema as first element
-        errorHandler.checkKeys(hotelsData[0], ['hotelId']);
+        errorHandler.checkKeys(hotelsData[0], ['hotelId', 'geoCode']);
 
         // Remove all other keys besides hotelId
-        const cleanHotelsData = hotelsData.map((hotel: any) => {
+        const geoCode = hotelsData[0].geoCode
+        const hotelIds = hotelsData.map((hotel: any) => {
             return hotel.hotelId
         })
 
-        return cleanHotelsData as string[]
+        return {
+            geoCode,
+            hotelIds
+        }
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching hotel list:', error as undefined | string)

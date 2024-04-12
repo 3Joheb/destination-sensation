@@ -5,12 +5,14 @@ import getHotelList from './getHotelList.js';
 import getHotelDetails from './getHotelDetails.js';
 import getActivities from './getActivities.js';
 
+const authToken = await getAuthToken()
+
 export default async (req: VercelRequest, res: VercelResponse) => {
-    const { origin, destination, departureDate, returnDate, maxPrice, lon, lat } = req.query;
+    const { origin, destination, departureDate, returnDate, maxPrice } = req.query;
 
     // Ensure valid query params from client
     try {
-        const queryParams = [origin, destination, departureDate, returnDate, maxPrice, lon, lat];
+        const queryParams = [origin, destination, departureDate, returnDate, maxPrice];
         queryParams.forEach((param) => {
             if (Array.isArray(param)) {
                 throw new Error()
@@ -26,22 +28,21 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     // Fetch data and send to client 
     try {
         console.log('----')
-        console.log('Fetching auth token...')
-        const authToken = await getAuthToken()
-
         console.log('Fetching flight details...')
         // @ts-ignore: Try catch block above already ensure query params are valid
         const flightDetails = await getFlightDetails(authToken, origin, destination, departureDate, returnDate, maxPrice)
 
         console.log('Fetching hotel details...')
-        // @ts-ignore: Try catch block above already ensure query params are valid
+        // @ts-ignore
         const hotelList = await getHotelList(authToken, destination)
 
         // @ts-ignore
-        const hotelDetails = await getHotelDetails(authToken, hotelList, departureDate, returnDate)
-
+        const hotelDetails = await getHotelDetails(authToken, hotelList.hotelIds, departureDate, returnDate)
         console.log('Fetching activities...')
-        // @ts-ignore
+
+
+        const lat = `${hotelList.geoCode.latitude}`
+        const lon = `${hotelList.geoCode.longitude}`
         const activities = await getActivities(authToken, lon, lat)
 
         console.log('Sending client response')

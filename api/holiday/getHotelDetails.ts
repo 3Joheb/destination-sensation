@@ -34,10 +34,11 @@ export default async (
         const hotelReq = await fetch(url, options);
         errorHandler.checkResponse(hotelReq);
 
-        const hotelsData = await hotelReq.json();
+        const hotelsRes = await hotelReq.json();
+        const hotelsData = hotelsRes.data
 
         // Assume other objects follow same schema as first element
-        errorHandler.checkKeys(hotelsData[0], ['hotelId', 'name', 'latitude', 'longitude', 'offers']);
+        errorHandler.checkKeys(hotelsData[0], ['hotel', 'available', 'offers']);
 
         // Sanitize data and return an array of hotel data
         const cleanHotelsData = hotelsData.map(({ hotel, available, offers }: any) => {
