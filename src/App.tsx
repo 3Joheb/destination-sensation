@@ -4,6 +4,9 @@ import cabinImg from "./assets/cabin.jpg"
 import winterImg from "./assets/winter.jpg"
 import Navbar from "./components/Navbar"
 import Card from "./components/Card"
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Input from "./pages/input"
 
 const App = () => {
 
@@ -11,6 +14,15 @@ const App = () => {
         <div>
             <Navbar />
             <Card destination="Spain" price="500" departuredate="15" returndate="25" />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Navbar />}>
+                        <Route index element={<App />} />
+                        <Route path="input" element={<Input />} />
+
+                    </Route>
+                </Routes>
+            </BrowserRouter>
 
             <div>WELCOME</div>
 
@@ -27,9 +39,11 @@ const App = () => {
             <p></p>
 
 
+
         </div>
 
     )
 }
-
 export default App
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(<App />);
