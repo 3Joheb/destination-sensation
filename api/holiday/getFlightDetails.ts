@@ -25,7 +25,6 @@ export default async (
         errorHandler.checkResponse(response)
 
         const result = await response.json();
-        errorHandler.checkKeys(result, ['data'])
         const data = result.data[0]
         errorHandler.checkKeys(data, ['lastTicketingDate', 'itineraries', 'price'])
 

@@ -1,33 +1,43 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-import getAuthToken from '../hotelList/getAuthToken.js';
+import CustomErrorHandler from '../utils/CustomErrorHandler.js';
+import { AmadeusOAuth2Token } from '../helpers/getAuthToken';
 
-const baseUrl = 'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city';
+export default async (authToken: AmadeusOAuth2Token, cityCode: string) => {
+    const baseUrl = 'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city';
 
-export default async (req: VercelRequest, res: VercelResponse) => {
-    const auth = await getAuthToken();
-    if ("error" in auth) {
-        res.json("error");
-    } else {
-        // Extract inputted parameters from the request
-        const cityCode = req.query.cityCode[0] || ''; // Optional city code
-        const checkInDate = req.query.checkInDate[0] || ''; // Optional check-in date
+    // Build the URL with parameters
+    const urlParams = new URLSearchParams();
+    urlParams.append('cityCode', cityCode);
+    urlParams.append('radius', '10');
 
-        // Build the URL with optional parameters
-        const urlParams = new URLSearchParams();
-        if (cityCode) urlParams.append('cityCode', cityCode);
-        if (checkInDate) urlParams.append('checkInDate', checkInDate);
+    const url = `${baseUrl}?${urlParams.toString()}`;
 
-        const url = `${baseUrl}?${urlParams.toString()}`;
+    const options: RequestInit = {
+        headers: {
+            'Authorization': `${authToken['token_type']} ${authToken['access_token']}`
+        }
+    };
 
-        const options: RequestInit = {
-            headers: {
-                'Authorization': `${auth['token_type']} ${auth['access_token']}`
-            }
-        };
+    const errorHandler = new CustomErrorHandler();
 
+    try {
         const hotelReq = await fetch(url, options);
-        const hotelData = await hotelReq.json();
+        errorHandler.checkResponse(hotelReq);
 
-        res.json({ hotels: hotelData });
+        const hotelResult = await hotelReq.json();
+        const hotelsData = hotelResult.data;
+
+        // Assume other objects follow same schema as first element
+        errorHandler.checkKeys(hotelsData[0], ['hotelId']);
+
+        // Remove all other keys besides hotelId
+        const cleanHotelsData = hotelsData.map((hotel: any) => {
+            return hotel.hotelId
+        })
+
+        return cleanHotelsData
+    } catch (error) {
+        // Log and handle errors
+        errorHandler.logError('Error fetching hotel list:', error as undefined | string)
+        throw new Error();
     }
-};
+}
