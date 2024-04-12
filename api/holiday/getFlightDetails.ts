@@ -25,11 +25,15 @@ export default async (
         errorHandler.checkResponse(response)
 
         const result = await response.json();
+        errorHandler.checkKeys(result, ['data'])
+        const data = result.data[0]
+        errorHandler.checkKeys(data, ['lastTicketingDate', 'itineraries', 'price'])
 
-        // Assume other objects have / don't have those keys
-        // errorHandler.checkKeys(result.data[0], ['destination', 'price', 'departureDate', 'returnDate'])
-
-        return result;
+        return {
+            itineraries: data.itineraries,
+            price: data.price.total,
+            last_date: data.lastTicketingDate
+        } as { itineraries: {}, price: string }
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching flight details:', error as undefined | string)
