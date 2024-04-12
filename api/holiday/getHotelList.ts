@@ -1,7 +1,7 @@
 import CustomErrorHandler from '../utils/CustomErrorHandler.js';
 import { AmadeusOAuth2Token } from '../helpers/getAuthToken';
 
-export default async (authToken: AmadeusOAuth2Token, cityCode: string) => {
+export default async (auth: AmadeusOAuth2Token, cityCode: string) => {
     const baseUrl = 'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city';
 
     // Build the URL with parameters
@@ -13,7 +13,7 @@ export default async (authToken: AmadeusOAuth2Token, cityCode: string) => {
 
     const options: RequestInit = {
         headers: {
-            'Authorization': `${authToken['token_type']} ${authToken['access_token']}`
+            'Authorization': `${auth['token_type']} ${auth['access_token']}`
         }
     };
 
