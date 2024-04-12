@@ -56,7 +56,7 @@ def return_iso_map(iso_file_path):
 
 def modify_csv(in_file_path, out_file_path):
     iso_map = return_iso_map('iso.csv')
-    columns_to_remove = ['icao', 'elevation', 'lat', 'lon', 'lid', 'tz']
+    columns_to_remove = ['icao', 'elevation', 'lid', 'tz']
 
     with open(in_file_path, newline='', encoding='utf-8') as infile, \
             open(out_file_path, 'w', newline='', encoding='utf-8') as outfile:

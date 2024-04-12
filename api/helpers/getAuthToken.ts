@@ -33,7 +33,7 @@ export default async (): Promise<AmadeusOAuth2Token> => {
         const token = await fetch('https://test.api.amadeus.com/v1/security/oauth2/token', options);
         errorHandler.checkResponse(token)
 
-        return await token.json();
+        return await token.json() as AmadeusOAuth2Token;
     } catch (error) {
         // Log and handle errors
         errorHandler.logError('Error fetching amadeus token:', error as undefined | string)

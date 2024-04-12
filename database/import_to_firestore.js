@@ -1,9 +1,11 @@
 import admin from 'firebase-admin'
 import fs from 'fs'
 import csv from 'csv-parser'
-import data from '../ignore/destination-sensation-beb16-firebase-adminsdk-6lj8m-19b4c6f659.json';
 
-// Initialize Firebase App
+
+const data = JSON.parse(fs.readFileSync('./ignore/destination-sensation-beb16-firebase-adminsdk-6lj8m-19b4c6f659.json'));
+
+// // Initialize Firebase App
 admin.initializeApp({
     credential: admin.credential.cert(data)
 });
