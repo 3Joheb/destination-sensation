@@ -39,8 +39,9 @@ const Options = () => {
                     <Card
                         destination={destination.city}
                         price={price}
-                        departuredate={departureDate}
-                        returndate={returnDate}
+                        departureDate={departureDate}
+                        returnDate={returnDate}
+                        image={image}
                         key={index}
                     />
                 ))}
