@@ -1,4 +1,3 @@
-import Card from "../components/Card"
 import beachImg from "../assets/beach.jpg"
 import cabinImg from "../assets/cabin.jpg"
 import winterImg from "../assets/winter.jpg"

@@ -1,8 +1,8 @@
 import "./index.css"
-import Navbar from "./navbar/navbar"
+import Navbar from "./components/Navbar"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Input from "./pages/input"
-import LoginSignup from "./components/LoginSignup/LoginSignup"
+import Input from "./pages/Input"
+import LoginSignup from "./pages/LoginSignup"
 import Home from "./pages/Home"
 
 export default () => {
@@ -14,7 +14,7 @@ export default () => {
                     <Route path="/" element={<Navbar />}>
                         <Route index element={<Home />} />
                         <Route path="input" element={<Input />} />
-                        <Route path="LoginSignup" element={<LoginSignup />} />
+                        <Route path="login" element={<LoginSignup />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
