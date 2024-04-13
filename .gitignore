@@ -13,6 +13,7 @@ dist
 dist-ssr
 *.local
 ignore
+fakeData.*
 
 # Editor directories and files
 .vscode/*
