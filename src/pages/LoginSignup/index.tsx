@@ -33,8 +33,7 @@ const LoginSignup = () => {
                 <div className="submit">Login</div>
             </div>
         </div>
-
     )
 }
 
-export default LoginSignup 
+export default LoginSignup
