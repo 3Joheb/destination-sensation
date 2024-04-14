@@ -1,9 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { detailsData } from "./fakeData"
 import { IoIosArrowRoundDown } from "react-icons/io";
 
 const HolidayDetails = () => {
-    const [options, setOptions] = useState(detailsData)
     const [activities, setActivites] = useState(detailsData.activities.slice(0, 10))
     const [flight, setFlight] = useState(detailsData.flightDetails)
     const [images, setImages] = useState(detailsData.images)
@@ -16,14 +15,15 @@ const HolidayDetails = () => {
 
     //         // Send request to backend
     //         try {
-    //             const optionsRes = await fetch(`/api/flight-inspiration?${searchParm}`)
-    //             const optionsResult = await optionsRes.json()
-    //             if (!optionsRes.ok) {
+    //             const response = await fetch(`/api/holiday?${searchParm}`)
+    //             const result = await response.json()
+    //             if (!response.ok) {
     //                 throw new Error('Failed to fetch data') // Maybe show GUI feedback
     //             }
 
-    //             setOptions(optionsResult)
-    //             console.log(optionsResult)
+    //             setActivites(result.activities)
+    //             setFlight(result.flightDetails)
+    //             setImages(result.images)
     //         } catch (error) {
     //             console.error('Error fetching data:', error);
     //         }
@@ -34,7 +34,7 @@ const HolidayDetails = () => {
 
     return (
         <div>
-            <div className="flex gap-2 max-w-2xl max-h-80">
+            <div className="flex gap-2 max-w-2xl max-h-80 w-full h-full">
                 <div className="w-1/2">
                     <img src={images[0].hotLink} className="w-full h-full object-cover" />
                 </div>

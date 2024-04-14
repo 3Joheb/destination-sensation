@@ -3,21 +3,25 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
 const Input = () => {
-    const [name, setName] = useState('');
-    const [destination, setDestination] = useState('');
-    const [startDate, setStartDate] = useState(new Date());
+    const [origin, setOrigin] = useState('DUB');
     const [endDate, setEndDate] = useState(new Date());
-    const [budget, setBudget] = useState(0);
+    const [budget, setBudget] = useState(50);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
 
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        console.log('From Submitted:', { name, destination, startDate, endDate, budget, numberOfPeople });
+        console.log('From Submitted:', { origin, endDate, budget, numberOfPeople });
 
-        const url = `/holiday/options?origin=${destination}&maxPrice=${budget}&departureDate=${endDate}`
+        const formattedDate = endDate.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            day: '2-digit',
+            month: '2-digit',
+        }).replace(/\//g, '-');
+        console.log(formattedDate)
+
+        const url = `/holiday/options?origin=${origin}&maxPrice=${budget}&departureDate=${formattedDate}`
         window.location.href = url
     };
-
 
     return (
         <div>
@@ -25,29 +29,12 @@ const Input = () => {
             <h2> PLEASE ENTER DETAILS BELOW TO MAKE YOUR DREAM HOLIDAY </h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="origin">From</label>
                     <input
                         type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="destination">Destination</label>
-                    <input
-                        type="text"
-                        id="destination"
-                        value={destination}
-                        onChange={(e) => setDestination(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="startDate">StartDate</label>
-                    <DatePicker
-                        selected={startDate}
-                        onChange={(date: Date | null) => date !== null && setStartDate(date)}
-                        dateFormat="dd/mm/yyyy"
+                        id="origin"
+                        value={origin}
+                        onChange={(e) => setOrigin(e.target.value)}
                     />
                 </div>
                 <div>
@@ -55,7 +42,7 @@ const Input = () => {
                     <DatePicker
                         selected={endDate}
                         onChange={(date: Date | null) => date !== null && setEndDate(date)}
-                        dateFormat="dd/mm/yyyy"
+                        dateFormat="dd/MM/yyyy"
                     />
                 </div>
 
@@ -66,6 +53,7 @@ const Input = () => {
                         id="budget"
                         min={50}
                         max={1000}
+                        step={10}
                         value={budget}
                         onChange={(e) => setBudget(parseInt(e.target.value))}
                     />
@@ -80,18 +68,9 @@ const Input = () => {
                     {Array.from({ length: 8 }, (_, i) => i + 1).map((num) => (
                         <option key={num} value={num}>{num}</option>
                     ))}
-                </select>
-
-
-                <div>
-
-                </div>
+                </select><br />
                 <button type="submit">Submit</button>
             </form>
-
-
-
-
         </div>
     )
 }
