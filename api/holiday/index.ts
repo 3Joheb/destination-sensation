@@ -4,7 +4,7 @@ import getFlightDetails from './getFlightDetails.js';
 import getHotelList from './getHotelList.js';
 import getHotelDetails from './getHotelDetails.js';
 import getActivities from './getActivities.js';
-import getAirportsData from './getAirportsData.js';
+import getAirportsData from '../flight-inspiration/getAirportsData.js';
 
 const authToken = await getAuthToken()
 
@@ -32,8 +32,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         console.log('Fetching flight details...')
         // @ts-ignore: Try catch block above already ensure query params are valid
         let flightDetails = await getFlightDetails(authToken, origin, destination, departureDate, returnDate, maxPrice)
-        const cleanFlightDetails = { itineraries: [], airportsMap: null }
+        const cleanFlightDetails = { itineraries: [], airportsMap: null, price: null }
         cleanFlightDetails.itineraries = flightDetails[0].itineraries // Only return one route
+        cleanFlightDetails.price = flightDetails[0].price
 
         let airportsMap = {} as any
 

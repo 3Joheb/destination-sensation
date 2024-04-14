@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { detailsData } from "./fakeData"
-import placeHolder from "../../assets/beach.jpg"
+import { IoIosArrowRoundDown } from "react-icons/io";
 
 const HolidayDetails = () => {
     const [options, setOptions] = useState(detailsData)
     const [activities, setActivites] = useState(detailsData.activities.slice(0, 3))
-    const [flights, setFlights] = useState(detailsData.flightDetails[0])
+    const [flight, setFlight] = useState(detailsData.flightDetails)
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -35,17 +35,17 @@ const HolidayDetails = () => {
         <div>
             <div>
                 <span>Flights</span>
-                <span>Price: {`${flights.price}`}</span>
+                <span>Price: {`${flight.price}`}</span>
                 <div>
-                    {flights.itineraries.map((flight, i) => (
+                    {flight.itineraries.map((route: any, i: any) => (
                         <div key={i}>
-                            <div>{flight.segments.map((segment, j) => (
+                            <div>{route.segments.map((segment: any, j: any) => (
                                 <div key={j}>
                                     <span>From: {`${segment.departure.iataCode}`}</span>
                                     <span>To: {`${segment.arrival.iataCode}`}</span>
                                 </div>
                             ))}</div>
-                            <span>Duration: {`${flight.duration}`}</span>
+                            <span>Duration: {`${route.duration}`}</span>
                         </div>
                     ))}
                 </div>
