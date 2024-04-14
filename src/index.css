@@ -103,51 +103,51 @@ font-weight: 500;
 } 
 
 nav {
-  position: fixed;
-  width: 100%;
-  background-color: rgba(45, 18, 0, 0.5);
-  transition: background-color 1s;
-  z-index: 5;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(45, 18, 0, 0.5);
+    transition: background-color 1s;
+    z-index: 5;
 }
 
 nav ul {
-  list-style: none;
-  float: centre;
-  padding: 0;
+    list-style: none;
+    float: centre;
+    padding: 0;
 }
 
 nav li {
-  display: inline-block;
+    display: inline-block;
 }
 
 nav li a {
-  color: #ffffff;
-  text-decoration: none;
-  margin: 0 32px;
-  font-size: 20px;
-  position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 32px;
+    font-size: 20px;
+    position: relative;
 }
 
 nav li a:hover::after {
-  width: 100%;
-  transition: width 0.5s ease-out;
+    width: 100%;
+    transition: width 0.5s ease-out;
 }
 
 nav li a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transform: translateY(3px);
-  width: 0;
-  height: 3px;
-  border-radius: 3px;
-  background-color: var(--light-blue);
-  transition: 0.5s ease-in;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(3px);
+    width: 0;
+    height: 3px;
+    border-radius: 3px;
+    background-color: rgb(56 189 248);
+    transition: 0.5s ease-in;
 }
 
 .nav svg line {
-  transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .test-container-joe {
@@ -161,3 +161,19 @@ button{
   background-color: #070708;
   color: #eaeaea;
 }
+
+.home-imgs {
+    @apply flex gap-4
+}
+
+.home-imgs .img-wrap {
+    @apply relative
+}
+
+.home-imgs img {
+    @apply rounded-md w-full h-full max-w-96
+}
+
+.home-imgs span {
+    @apply bg-sky-400 rounded-md font-medium text-white text-lg px-3 absolute right-0 bottom-0 -translate-y-1/2 -translate-x-1/4
+} 

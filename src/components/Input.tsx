@@ -3,9 +3,9 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
 const Input = () => {
-    const [origin, setOrigin] = useState('DUB');
+    const [origin, setOrigin] = useState('MAD');
     const [endDate, setEndDate] = useState(new Date());
-    const [budget, setBudget] = useState(50);
+    const [budget, setBudget] = useState(150);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
 
     const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -23,11 +23,10 @@ const Input = () => {
     };
 
     return (
-        <div>
-
-            <h2> PLEASE ENTER DETAILS BELOW TO MAKE YOUR DREAM HOLIDAY </h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+        <div className="">
+            <h2>Fill in the form to find your dream holiday</h2>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-96">
+                <div className="flex justify-between">
                     <label htmlFor="origin">From</label>
                     <input
                         type="text"
@@ -36,7 +35,7 @@ const Input = () => {
                         onChange={(e) => setOrigin(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="flex justify-between">
                     <label htmlFor="endDate">EndDate</label>
                     <DatePicker
                         selected={endDate}
@@ -45,7 +44,7 @@ const Input = () => {
                     />
                 </div>
 
-                <div>
+                <div className="flex justify-between">
                     <label htmlFor="budget">Budget (50-1,000):</label>
                     <input
                         type="range"
@@ -58,16 +57,18 @@ const Input = () => {
                     />
                     <p>{budget}</p>
                 </div>
-                <label htmlFor="numberOfPeople">Number Of People (1-8):</label>
-                <select
-                    id="numberOfPeople"
-                    value={numberOfPeople}
-                    onChange={(e) => setNumberOfPeople(parseInt(e.target.value))}
-                >
-                    {Array.from({ length: 8 }, (_, i) => i + 1).map((num) => (
-                        <option key={num} value={num}>{num}</option>
-                    ))}
-                </select><br />
+                <div className="flex justify-between">
+                    <label htmlFor="numberOfPeople">Number Of People (1-8):</label>
+                    <select
+                        id="numberOfPeople"
+                        value={numberOfPeople}
+                        onChange={(e) => setNumberOfPeople(parseInt(e.target.value))}
+                    >
+                        {Array.from({ length: 8 }, (_, i) => i + 1).map((num) => (
+                            <option key={num} value={num}>{num}</option>
+                        ))}
+                    </select>
+                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
