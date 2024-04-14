@@ -21,7 +21,7 @@ export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
         errorHandler.checkResponse(actReq);
 
         const actRes = await actReq.json();
-        const actData = actRes.data
+        const actData = actRes.data.slice(0, 9)
         errorHandler.checkKeys(actData[0], ['name', 'geoCode', 'pictures', 'price'])
 
         const cleanActData = actData.map((act: any) => {
