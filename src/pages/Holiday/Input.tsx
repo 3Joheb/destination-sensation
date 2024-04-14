@@ -17,7 +17,6 @@ const Input = () => {
             day: '2-digit',
             month: '2-digit',
         }).replace(/\//g, '-');
-        console.log(formattedDate)
 
         const url = `/holiday/options?origin=${origin}&maxPrice=${budget}&departureDate=${formattedDate}`
         window.location.href = url
