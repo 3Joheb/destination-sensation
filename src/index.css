@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -101,8 +99,10 @@ button:focus-visible {
 .container{
   display: flex;
   flex-direction: column;
+  margin: auto;
   margin-top: 200px;
-  background-color: #242424;
+  width: 600px;
+  background-image: url(/src/assets/background.jpg);
   padding-bottom: 30px;
 }
 .header{
@@ -110,6 +110,73 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: 9px;
+  color: black;
   width: 100%;
   margin-top: 30px;
+  background-color: white;
+}
+.text{
+color: #646cff;
+font-size: 2.3em;
+font-weight: 500;
+}
+.inputs{
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10x;
+  align-items: center;
+}
+.input{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 480px;
+  height: 60px;
+  background: #eaeaea;
+  border-radius: 6px;
+}
+.input img{
+  margin: 0px 30px;
+}
+.input input{
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 19px;
+}
+.forgot-password{
+  padding-left: 62px;
+  margin-top: 27px;
+  color:#4c00b4;
+  font-size: 18px;
+}
+.forgot-password span{
+  color: #4c00b4;
+  cursor: pointer;
+}
+.submit-container{
+  display: flex;
+  gap: 30px;
+  margin: 60px auto;
+}
+.submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  color: #fff;
+  background: green;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gray{
+  background: color #747bff;
+  color: #242424
 }
