@@ -34,12 +34,12 @@ const HolidayDetails = () => {
     return (
         <div>
             <div>
-                <h2>Flights</h2>
-                <div>
+                <h2 className="text-2xl">Flights</h2>
+                <div className="flex gap-4">
                     {flight.itineraries.map((route: any, i: any) => (
-                        <div key={i}>
+                        <div className="flex flex-col items-center" key={i}>
                             <div>{route.segments.map((segment: any, j: any) => (
-                                <div key={j}>
+                                <div className="flex flex-col items-center" key={j}>
                                     <span>{`${flight.airportsMap[segment.departure.iataCode].country}`}</span>
                                     <IoIosArrowRoundDown />
                                     <span>{`${flight.airportsMap[segment.arrival.iataCode].country}`}</span>
