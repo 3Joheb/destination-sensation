@@ -7,6 +7,13 @@ const HolidayDetails = () => {
     const [flight, setFlight] = useState(detailsData.flightDetails)
     const [images, setImages] = useState(detailsData.images)
 
+    const regexPattern = /PT|H|M/g; // Regex pattern to match "PT", "H", and "M"
+    const replacements = {
+        "PT": "", // Replace "PT" with an empty string
+        "H": " hour", // Replace "H" with " hour"
+        "M": " mins" // Replace "M" with " mins"
+    };
+
     // useEffect(() => {
     //     const fetchData = async () => {
     //         // Clients current url
@@ -33,8 +40,8 @@ const HolidayDetails = () => {
     // }, [])
 
     return (
-        <div>
-            <div className="flex gap-2 max-w-2xl max-h-80 w-full h-full">
+        <div className="mx-4 flex flex-col gap-20">
+            <div className="flex gap-2 max-h-80 w-full h-full rounded-md overflow-hidden">
                 <div className="w-1/2">
                     <img src={images[0].hotLink} className="w-full h-full object-cover" />
                 </div>
@@ -47,9 +54,9 @@ const HolidayDetails = () => {
             {/*             <div>
                 <h1>A trip to {}</h1>
             </div> */}
-            <div>
-                <h2 className="text-2xl">Flights</h2>
-                <div className="flex gap-4">
+            <div className="flex flex-col items-center gap-4">
+                <h2 className="text-2xl font-medium">Flights</h2>
+                <div className="flex gap-4 bg-neutral-200 rounded-md p-4">
                     {flight.itineraries.map((route: any, i: any) => (
                         <div className="flex flex-col items-center" key={i}>
                             <div>{route.segments.map((segment: any, j: any) => (
@@ -57,15 +64,17 @@ const HolidayDetails = () => {
                                     <span>{`${flight.airportsMap[segment.departure.iataCode].city}`}</span>
                                     <IoIosArrowRoundDown />
                                     <span>{`${flight.airportsMap[segment.arrival.iataCode].city}`}</span>
+                                    <span>{`${segment.departure.at}`}</span>
                                 </div>
                             ))}</div>
-                            <span>Duration: {`${route.duration}`}</span>
+                            <span>{`${route.duration.replace(regexPattern, match => replacements[match])}`}</span>
+
                         </div>
                     ))}
                 </div>
             </div>
             <div>
-                <h1>Things to do</h1>
+                <h1 className="text-3xl font-medium mb-4 text-center">Things to do</h1>
                 <div className="overflow-y-auto">
                     <div className="flex gap-10 min-w-fit">
                         {activities.map((activity, i) => (
