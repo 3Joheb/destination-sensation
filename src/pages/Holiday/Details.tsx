@@ -44,6 +44,9 @@ const HolidayDetails = () => {
                     ))}
                 </div>
             </div>
+            {/*             <div>
+                <h1>A trip to {}</h1>
+            </div> */}
             <div>
                 <h2 className="text-2xl">Flights</h2>
                 <div className="flex gap-4">
