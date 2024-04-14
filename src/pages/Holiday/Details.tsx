@@ -34,15 +34,15 @@ const HolidayDetails = () => {
     return (
         <div>
             <div>
-                <span>Flights</span>
-                <span>Price: {`${flight.price}`}</span>
+                <h2>Flights</h2>
                 <div>
                     {flight.itineraries.map((route: any, i: any) => (
                         <div key={i}>
                             <div>{route.segments.map((segment: any, j: any) => (
                                 <div key={j}>
-                                    <span>From: {`${segment.departure.iataCode}`}</span>
-                                    <span>To: {`${segment.arrival.iataCode}`}</span>
+                                    <span>{`${flight.airportsMap[segment.departure.iataCode].country}`}</span>
+                                    <IoIosArrowRoundDown />
+                                    <span>{`${flight.airportsMap[segment.arrival.iataCode].country}`}</span>
                                 </div>
                             ))}</div>
                             <span>Duration: {`${route.duration}`}</span>
