@@ -3,9 +3,9 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
 const Input = () => {
-    const [origin, setOrigin] = useState('DUB');
+    const [origin, setOrigin] = useState('MAD');
     const [endDate, setEndDate] = useState(new Date());
-    const [budget, setBudget] = useState(50);
+    const [budget, setBudget] = useState(150);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
 
     const handleSubmit = (e: { preventDefault: () => void }) => {
