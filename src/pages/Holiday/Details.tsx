@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react"
-import Card from "../../components/Card"
+import { useState } from "react"
 import { optionsData } from "./fakeData"
 
-
-const HolidayOptions = () => {
+const HolidayDetails = () => {
     const [options, setOptions] = useState(optionsData)
 
     // useEffect(() => {
@@ -31,23 +29,8 @@ const HolidayOptions = () => {
     // }, [])
 
     return (
-        <div className="flex flex-col items-center">
-            <span>Pick one the holidays below</span>
-            <h1 className="text-2xl">You're one step away from one of these amazing holidays!</h1>
-            <div className="flex flex-col gap-20 items-center my-14">
-                {options.map(({ destination, price, departureDate, returnDate, image }, index) => (
-                    <Card
-                        destination={destination.city}
-                        price={price}
-                        departureDate={departureDate}
-                        returnDate={returnDate}
-                        image={image}
-                        key={index}
-                    />
-                ))}
-            </div>
-        </div>
+        <div></div>
     )
 }
 
-export default HolidayOptions
+export default HolidayDetails

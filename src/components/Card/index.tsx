@@ -11,17 +11,9 @@ interface Cardinterface {
     }
 }
 
-/* Todo
-- Layout and styling
-    - Image
-    - Ul
-- Make pixabay logo more clear
-
-*/
-
 const Card = ({ destination, price, departureDate, returnDate, image }: Cardinterface) => {
     return (
-        <div className='flex gap-8'>
+        <div className='flex gap-8 w-fit'>
             <div className='relative w-64 h-64'>
                 <img src={image.link} alt={`Image of ${destination}`} className='w-64 h-64 object-cover relative' />
                 <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-transparent to-black' />
