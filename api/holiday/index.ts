@@ -4,6 +4,7 @@ import getFlightDetails from './getFlightDetails.js';
 import getHotelList from './getHotelList.js';
 import getHotelDetails from './getHotelDetails.js';
 import getActivities from './getActivities.js';
+import getAirportsData from './getAirportsData.js';
 
 const authToken = await getAuthToken()
 
@@ -30,7 +31,27 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         console.log('----')
         console.log('Fetching flight details...')
         // @ts-ignore: Try catch block above already ensure query params are valid
-        const flightDetails = await getFlightDetails(authToken, origin, destination, departureDate, returnDate, maxPrice)
+        let flightDetails = await getFlightDetails(authToken, origin, destination, departureDate, returnDate, maxPrice)
+        const cleanFlightDetails = { itineraries: [], airportsMap: null }
+        cleanFlightDetails.itineraries = flightDetails[0].itineraries // Only return one route
+
+        let airportsMap = {} as any
+
+        cleanFlightDetails.itineraries.forEach(({ segments }: any) => {
+            segments.forEach((segment: any) => {
+                airportsMap[segment.departure.iataCode] = ""
+                airportsMap[segment.arrival.iataCode] = ""
+            })
+        })
+
+        let airportsKeys = Object.keys(airportsMap)
+        // @ts-ignore
+        const airportDetails = await getAirportsData(airportsKeys)
+        airportsKeys.forEach((key, i) => {
+            airportsMap[key] = airportDetails[i]
+        })
+
+        cleanFlightDetails.airportsMap = airportsMap
 
         console.log('Fetching hotel details...')
         // @ts-ignore
@@ -40,7 +61,6 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         const hotelDetails = await getHotelDetails(authToken, hotelList.hotelIds, departureDate, returnDate)
         console.log('Fetching activities...')
 
-
         const lat = `${hotelList.geoCode.latitude}`
         const lon = `${hotelList.geoCode.longitude}`
         const activities = await getActivities(authToken, lon, lat)
@@ -49,11 +69,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         console.log('----')
 
         res.status(200).json({
-            flightDetails,
+            flightDetails: cleanFlightDetails,
             hotelDetails,
             activities
         })
     } catch (error) {
+        console.log('Error:', error)
         res.status(500).json({ code: 500, error: 'Internal Server Error' })
     }
 }
