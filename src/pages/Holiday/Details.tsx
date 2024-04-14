@@ -37,10 +37,10 @@ const HolidayDetails = () => {
                 <span>Flights</span>
                 <span>Price: {`${flights.price}`}</span>
                 <div>
-                    {flights.itineraries.map((flight) => (
-                        <div>
-                            <div>{flight.segments.map((segment) => (
-                                <div>
+                    {flights.itineraries.map((flight, i) => (
+                        <div key={i}>
+                            <div>{flight.segments.map((segment, j) => (
+                                <div key={j}>
                                     <span>From: {`${segment.departure.iataCode}`}</span>
                                     <span>To: {`${segment.arrival.iataCode}`}</span>
                                 </div>
@@ -53,8 +53,8 @@ const HolidayDetails = () => {
             <div>
                 <h1>Things to do</h1>
                 <div>
-                    {activities.map((activity) => (
-                        <div className="">
+                    {activities.map((activity, i) => (
+                        <div className="" key={i}>
                             <img src={activity.pictures[0]} alt="" className="w-52 h-52 object-cover" />
                             <h2>{activity.name}</h2>
                             <p>{activity.description.short}</p>
