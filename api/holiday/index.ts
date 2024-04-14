@@ -4,7 +4,8 @@ import getFlightDetails from './getFlightDetails.js';
 import getHotelList from './getHotelList.js';
 import getHotelDetails from './getHotelDetails.js';
 import getActivities from './getActivities.js';
-import getAirportsData from '../flight-inspiration/getAirportsData.js';
+import getAirportsData from './getAirportsData.js';
+import getCountryImage from './getCountryImage.js';
 
 const authToken = await getAuthToken()
 
@@ -54,6 +55,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
         cleanFlightDetails.airportsMap = airportsMap
 
+        // Get images
+        console.log('Fetching images...')
+        // @ts-ignore
+        const country = airportsMap[destination]
+        const images = await getCountryImage(country)
+
         console.log('Fetching hotel details...')
         // @ts-ignore
         const hotelList = await getHotelList(authToken, destination)
@@ -72,7 +79,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         res.status(200).json({
             flightDetails: cleanFlightDetails,
             hotelDetails,
-            activities
+            activities,
+            images
         })
     } catch (error) {
         console.log('Error:', error)

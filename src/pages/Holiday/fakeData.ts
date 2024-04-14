@@ -1815,5 +1815,27 @@ export const detailsData = {
                 "currencyCode": "EUR"
             }
         }
+    ],
+    images: [
+        {
+            "hotLink": "https://pixabay.com/get/gf11fb814d34ee48f31dc455b80b5976d2679e261e5a5f97f300d815ef5026fa36d8affe4d5b8c72e42b0f5ad6259c470_640.jpg",
+            "redirect": "https://pixabay.com/photos/moon-full-moon-night-dark-lunar-415501/"
+        },
+        {
+            "hotLink": "https://pixabay.com/get/g1a549eb43a0b806f86b37713fa0b1af73a21ae09fda4fe3712f9c41c6b3760ebd8f1414491a4216deaacc818e899318c435f175f87521fffec90bff8e22ad127_640.jpg",
+            "redirect": "https://pixabay.com/photos/camera-hat-fallen-leaves-retro-8246764/"
+        },
+        {
+            "hotLink": "https://pixabay.com/get/g96ff0d567caad688ea8d6122af97c18f2df85f490032f8d6b175cb800ea2e1392bf11e4fd4aa59fec338191bb6c14627011d4d3dd42467b4045f88662f56480b_640.jpg",
+            "redirect": "https://pixabay.com/photos/fantasy-ufo-city-science-fiction-2861815/"
+        },
+        {
+            "hotLink": "https://pixabay.com/get/gbf8c7b85f811bb1f28d9a7273f330062a9a965def0a213f206c4675574215112640fad625e368fdb0c4462eb824aef8e_640.jpg",
+            "redirect": "https://pixabay.com/photos/earth-planet-space-world-universe-11009/"
+        },
+        {
+            "hotLink": "https://pixabay.com/get/gf641232d960a05e538c4ad8a35e3a287f6fbb113680926c41644d7c672ba1224559d2909f1e1a935b814a2241c0e8bca_640.jpg",
+            "redirect": "https://pixabay.com/photos/stars-galaxy-space-rosette-nebula-67616/"
+        }
     ]
 }

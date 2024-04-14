@@ -7,7 +7,6 @@ export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
 
     // Build the URL with inputted parameters
     const url = `${baseUrl}?longitude=${lon}&latitude=${lat}&radius=20`;
-    console.log(url)
 
     const options: RequestInit = {
         headers: {

@@ -6,6 +6,7 @@ const HolidayDetails = () => {
     const [options, setOptions] = useState(detailsData)
     const [activities, setActivites] = useState(detailsData.activities.slice(0, 10))
     const [flight, setFlight] = useState(detailsData.flightDetails)
+    const [images, setImages] = useState(detailsData.images)
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -33,6 +34,16 @@ const HolidayDetails = () => {
 
     return (
         <div>
+            <div className="flex gap-2 max-w-2xl max-h-80">
+                <div className="w-1/2">
+                    <img src={images[0].hotLink} className="w-full h-full object-cover" />
+                </div>
+                <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-2">
+                    {images.slice(1).map((img, i) => (
+                        <img src={img.hotLink} key={i} className="w-full h-full object-cover" />
+                    ))}
+                </div>
+            </div>
             <div>
                 <h2 className="text-2xl">Flights</h2>
                 <div className="flex gap-4">
