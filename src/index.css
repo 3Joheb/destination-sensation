@@ -70,3 +70,51 @@ button:focus-visible {
     width: 100%;
     margin-top: 30px;
 }
+
+nav {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(45, 18, 0, 0.5);
+  transition: background-color 1s;
+  z-index: 5;
+}
+
+nav ul {
+  list-style: none;
+  float: centre;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav li a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 32px;
+  font-size: 20px;
+  position: relative;
+}
+
+nav li a:hover::after {
+  width: 100%;
+  transition: width 0.5s ease-out;
+}
+
+nav li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(3px);
+  width: 0;
+  height: 3px;
+  border-radius: 3px;
+  background-color: var(--light-blue);
+  transition: 0.5s ease-in;
+}
+
+.nav svg line {
+  transition: all 0.3s ease;
+}
