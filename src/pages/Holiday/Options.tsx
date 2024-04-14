@@ -32,8 +32,8 @@ const HolidayOptions = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <span>Pick one the holidays below</span>
-            <h1 className="text-2xl">You're one step away from one of these amazing holidays!</h1>
+            <span className="text-4xl font-medium">Pick one the holidays below</span>
+            <h1 className="font-medium">You're one step away from one of these amazing holidays!</h1>
             <div className="flex flex-col gap-20 items-center my-14">
                 {options.map(({ origin, destination, price, departureDate, returnDate, image }, index) => (
                     <Card
