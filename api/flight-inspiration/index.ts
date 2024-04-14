@@ -56,13 +56,16 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             if (airport && image) {
                 holiday.destination = {}
                 holiday.image = {}
+                holiday.destination.iata = airport.iata
                 holiday.destination.country = airport.country
                 holiday.destination.city = airport.city
                 holiday.destination.subdivision = airport.subd
                 holiday.image.hotLink = image.imageHotlink
                 holiday.image.redirect = image.redirectLink
 
-                holiday.image.tags = image.tags // Remove in prod
+                holiday.origin = {}
+                holiday.origin.iata = origin
+                holiday.iata = undefined
 
                 return holiday
             }
