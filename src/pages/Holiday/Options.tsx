@@ -35,9 +35,9 @@ const HolidayOptions = () => {
             <span>Pick one the holidays below</span>
             <h1 className="text-2xl">You're one step away from one of these amazing holidays!</h1>
             <div className="flex flex-col gap-20 items-center my-14">
-                {options.map(({ iata, destination, price, departureDate, returnDate, image }, index) => (
+                {options.map(({ origin, destination, price, departureDate, returnDate, image }, index) => (
                     <Card
-                        iata={iata}
+                        origin={origin}
                         destination={destination.city}
                         price={price}
                         departureDate={departureDate}

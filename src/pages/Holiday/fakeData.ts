@@ -1,51 +1,57 @@
 // Use this to prevent hitting api quotas
 export const optionsData = [
     {
-        "iata": "RAK",
-        "price": "64.47",
-        "departureDate": "2024-05-05",
-        "returnDate": "2024-05-17",
+        "price": "71.89",
+        "departureDate": "2024-04-19",
+        "returnDate": "2024-04-27",
         "destination": {
-            "country": "Morocco",
-            "city": "Marrakech",
-            "subdivision": "Marrakesh-Safi"
-        },
-        "image": {
-            "link": "https://pixabay.com/get/gdbe0e97767920b6f496c9cc98f4817b35c52edfca55fc70f4bd94ab5bd592f4d9be4a8a52638a731a468d8e7bd9220e6da5880d37715fd03609b84b3a566e13b_640.jpg",
-            "redirect": "https://pixabay.com/photos/morocco-city-historic-village-clay-2349647/",
-            "tags": "morocco, city, historic"
-        }
-    },
-    {
-        "iata": "LPA",
-        "price": "66.89",
-        "departureDate": "2024-05-05",
-        "returnDate": "2024-05-07",
-        "destination": {
+            "iata": "LPA",
             "country": "Spain",
             "city": "Gran Canaria Island",
             "subdivision": "Canary-Islands"
         },
         "image": {
-            "link": "https://pixabay.com/get/g68feabd008b4b53152f51fa80334965032d9bed58740f3a64275b3e81adb53b75946f321e3e2baf55453a3e70a4f51b7dce0548546f9b43e259f60faf60fb95a_640.jpg",
-            "redirect": "https://pixabay.com/photos/sea-shore-waves-storm-darkness-8581570/",
-            "tags": "sea, shore, waves"
+            "hotLink": "https://pixabay.com/get/gfb8a5b5ea55b0c9e9738c0415de8d533573bf352cd26ac5b32f126afec66e302620ec23e98232a711d598ab035c2c0158b6c71ec9159ead23dece4f303cb288c_640.jpg",
+            "redirect": "https://pixabay.com/photos/woman-bikini-beach-rocks-girl-1252185/"
+        },
+        "origin": {
+            "iata": "MAD"
         }
     },
     {
-        "iata": "OPO",
-        "price": "71.00",
-        "departureDate": "2024-05-05",
-        "returnDate": "2024-05-11",
+        "price": "86.00",
+        "departureDate": "2024-04-19",
+        "returnDate": "2024-04-27",
         "destination": {
+            "iata": "OPO",
             "country": "Portugal",
             "city": "Porto",
             "subdivision": "Porto"
         },
         "image": {
-            "link": "https://pixabay.com/get/gc1cdcc23635279d1eaaba4798a12449e19e31617ef8bb73612dca27574011f1fcac854c10532eefbff2e6c0abfc899bfd3d76cbd71fe29967b77f8a6a46cefc3_640.jpg",
-            "redirect": "https://pixabay.com/photos/lisbon-tram-portugal-8268841/",
-            "tags": "lisbon, tram, portugal"
+            "hotLink": "https://pixabay.com/get/g54a11cf7d3e88f213af984a0abb5f9048fbe341798c66e9c5d86b51c3732e094fae1ae1cc5ef6bef57fe76cdd230c8c86b5f986c7d4132aa0f66594bd0cf52e2_640.jpg",
+            "redirect": "https://pixabay.com/photos/luis-i-bridge-deck-arch-bridge-porto-8201941/"
+        },
+        "origin": {
+            "iata": "MAD"
+        }
+    },
+    {
+        "price": "88.33",
+        "departureDate": "2024-04-19",
+        "returnDate": "2024-04-20",
+        "destination": {
+            "iata": "PMI",
+            "country": "Spain",
+            "city": "Palma De Mallorca",
+            "subdivision": "Islas Baleares"
+        },
+        "image": {
+            "hotLink": "https://pixabay.com/get/g1d4d7937045dc276911bf151cd8b1dcaf6eed01584e443c2efe87d06e0954f3385c3d1457fe6e3405105a1aa8a3c8b6638e427e8bd53d8e9e54330689feda4ad_640.jpg",
+            "redirect": "https://pixabay.com/photos/historic-center-palma-spain-4316208/"
+        },
+        "origin": {
+            "iata": "MAD"
         }
     }
 ]
