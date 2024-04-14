@@ -22,7 +22,7 @@ const Card = ({ origin, destination, price, departureDate, returnDate, image }: 
     }
 
     return (
-        <div className='flex gap-14 max-w-2xl w-full bg-white py-4 px-6 rounded-md shadow-md' onClick={() => redirectToHolidayDetails()}>
+        <div className='flex gap-14 max-w-2xl w-full bg-white py-4 px-6 rounded-md shadow-md cursor-pointer hover:bg-neutral-50' onClick={() => redirectToHolidayDetails()}>
             <div className='relative w-64 h-64 rounded-md overflow-hidden'>
                 <img src={image.hotLink} alt={`Image of ${destination}`} className='w-64 h-64 object-cover relative' />
                 <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-transparent to-black' />
