@@ -23,8 +23,8 @@ const getCountryImage = async (country: string, city?: string, subdivision?: str
 
     // Construct URL for Pixabay API request
     const baseUrl = 'https://pixabay.com/api/';
-    const query = `${country}+${subdivision}`
-    const colors = `grayscale`
+    const query = `${country}`
+    const colors = `red+green+blue+yellow+orange`
     const category = `landscape`
 
     const url = `${baseUrl}?key=${key}&q=${query}&category=${category}&colors${colors}`;

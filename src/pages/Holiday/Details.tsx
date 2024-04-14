@@ -3,9 +3,10 @@ import { detailsData } from "./fakeData"
 import { IoIosArrowRoundDown } from "react-icons/io";
 
 const HolidayDetails = () => {
-    const [activities, setActivites] = useState(detailsData.activities.slice(0, 10))
+    const [activities, setActivites] = useState(detailsData.activities)
     const [flight, setFlight] = useState(detailsData.flightDetails)
     const [images, setImages] = useState(detailsData.images)
+    const [isLoading, setIsLoading] = useState(true);
 
     const regexPattern = /PT|H|M/g; // Regex pattern to match "PT", "H", and "M"
     const replacements = {
@@ -14,30 +15,31 @@ const HolidayDetails = () => {
         "M": " mins" // Replace "M" with " mins"
     };
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         // Clients current url
-    //         const url = new URL(window.location.href)
-    //         const searchParm = url.searchParams
+    useEffect(() => {
+        const fetchData = async () => {
+            // Clients current url
+            const url = new URL(window.location.href)
+            const searchParm = url.searchParams
 
-    //         // Send request to backend
-    //         try {
-    //             const response = await fetch(`/api/holiday?${searchParm}`)
-    //             const result = await response.json()
-    //             if (!response.ok) {
-    //                 throw new Error('Failed to fetch data') // Maybe show GUI feedback
-    //             }
+            // Send request to backend
+            try {
+                const response = await fetch(`/api/holiday?${searchParm}`)
+                const result = await response.json()
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data') // Maybe show GUI feedback
+                }
 
-    //             setActivites(result.activities)
-    //             setFlight(result.flightDetails)
-    //             setImages(result.images)
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     }
+                setActivites(result.activities)
+                setFlight(result.flightDetails)
+                setImages(result.images)
+                setIsLoading(false)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
 
-    //     fetchData()
-    // }, [])
+        fetchData()
+    }, [])
 
     return (
         <div className="mx-4 flex flex-col gap-20">
@@ -51,9 +53,6 @@ const HolidayDetails = () => {
                     ))}
                 </div>
             </div>
-            {/*             <div>
-                <h1>A trip to {}</h1>
-            </div> */}
             <div className="flex flex-col items-center gap-4">
                 <h2 className="text-2xl font-medium">Flights</h2>
                 <div className="flex gap-4 bg-neutral-200 rounded-md p-4">

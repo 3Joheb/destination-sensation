@@ -14,9 +14,9 @@ const Input = () => {
 
         const formattedDate = endDate.toLocaleDateString('en-GB', {
             year: 'numeric',
-            day: '2-digit',
             month: '2-digit',
-        }).replace(/\//g, '-');
+            day: '2-digit',
+        }).split('/').reverse().join('-');
 
         const url = `/holiday/options?origin=${origin}&maxPrice=${budget}&departureDate=${formattedDate}`
         window.location.href = url

@@ -24,9 +24,9 @@ export default async (departureDate: string, origin: string, maxPrice: string) =
 
     try {
         const response = await fetch(fetchUrl, fetchOptions);
+        const result = await response.json();
         errorHandler.checkResponse(response)
 
-        const result = await response.json();
 
         // Assume other objects have / don't have those keys
         errorHandler.checkKeys(result.data[0], ['destination', 'price', 'departureDate', 'returnDate'])
