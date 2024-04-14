@@ -5,7 +5,7 @@ import placeHolder from "../../assets/beach.jpg"
 const HolidayDetails = () => {
     const [options, setOptions] = useState(detailsData)
     const [activities, setActivites] = useState(detailsData.activities.slice(0, 3))
-    const [flight, setFlight] = useState(detailsData.flightDetails)
+    const [flights, setFlights] = useState(detailsData.flightDetails[0])
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -34,14 +34,33 @@ const HolidayDetails = () => {
     return (
         <div>
             <div>
+                <span>Flights</span>
+                <span>Price: {`${flights.price}`}</span>
+                <div>
+                    {flights.itineraries.map((flight) => (
+                        <div>
+                            <div>{flight.segments.map((segment) => (
+                                <div>
+                                    <span>From: {`${segment.departure.iataCode}`}</span>
+                                    <span>To: {`${segment.arrival.iataCode}`}</span>
+                                </div>
+                            ))}</div>
+                            <span>Duration: {`${flight.duration}`}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div>
                 <h1>Things to do</h1>
-                {activities.map((activity) => (
-                    <div className="">
-                        <img src={activity.pictures[0]} alt="" />
-                        <h2>{activity.name}</h2>
-                        <p>{activity.description.short}</p>
-                    </div>
-                ))}
+                <div>
+                    {activities.map((activity) => (
+                        <div className="">
+                            <img src={activity.pictures[0]} alt="" className="w-52 h-52 object-cover" />
+                            <h2>{activity.name}</h2>
+                            <p>{activity.description.short}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
