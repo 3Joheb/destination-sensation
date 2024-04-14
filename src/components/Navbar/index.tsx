@@ -9,10 +9,7 @@ const Navbar = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/input">Input</Link>
-                    </li>
-                    <li>
-                        <Link to="/components/Card/index">Holiday Generator</Link>
+                        <Link to="/holiday">Holiday Generator</Link>
                     </li>
                     <li>
                         <Link to="/login">Login</Link>

@@ -13,6 +13,9 @@ const Input = () => {
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
         console.log('From Submitted:', { name, destination, startDate, endDate, budget, numberOfPeople });
+
+        const url = `/holiday/options?origin=${destination}&maxPrice=${budget}&departureDate=${endDate}`
+        window.location.href = url
     };
 
 
@@ -57,19 +60,16 @@ const Input = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="budget">Budget (0-10,00):</label>
+                    <label htmlFor="budget">Budget (50-1,000):</label>
                     <input
                         type="range"
                         id="budget"
-                        min={0}
-                        max={10000}
+                        min={50}
+                        max={1000}
                         value={budget}
                         onChange={(e) => setBudget(parseInt(e.target.value))}
                     />
                     <p>{budget}</p>
-
-
-
                 </div>
                 <label htmlFor="numberOfPeople">Number Of People (1-8):</label>
                 <select
