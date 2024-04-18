@@ -91,9 +91,6 @@ describe('getActivities', () => {
 
     it('throws an error when the API call fails', async () => {
         fetchMock.mockReject(new Error('API failure'));
-
-        // Since we're not testing the error handler explicitly,
-        // we don't need to mock it or spy on it
         await expect(getActivities(auth, '51.50988', '-0.15509')).rejects.toThrow();
     });
 });
