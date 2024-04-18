@@ -8,4 +8,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Payment/>
     <LoginSignup/>
     </React.StrictMode>
+import App from "./App"
+
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+    <App />
 )

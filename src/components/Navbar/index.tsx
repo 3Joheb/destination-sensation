@@ -1,20 +1,20 @@
+import { Outlet, Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <nav>
-            <ul className="flex gap-4">
-                <li>
-                    <a href="/">Sign Up</a>
-                </li>
-                <li>
-                    <a href="/home">Home</a>
-                </li>
-                <li>
-                    <a href="/build">Holiday Builder</a>
-                </li>
-            </ul>
-        </nav>
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                </ul>
+            </nav>
+            <Outlet />
+        </>
     )
-}
-
+};
 export default Navbar;
