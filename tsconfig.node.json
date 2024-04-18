@@ -1,10 +1,19 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["vite.config.ts"]
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2020",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "outDir": "./dist",
+        "skipLibCheck": true,
+        "strict": true
+    },
+    "include": [
+        "api/**/*" // Adjust this to where your backend files are located
+    ],
+    "exclude": [
+        "node_modules",
+        "src" // Exclude frontend code from backend compilation
+    ]
 }

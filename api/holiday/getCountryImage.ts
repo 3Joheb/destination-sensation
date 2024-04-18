@@ -1,4 +1,4 @@
-import CustomErrorHandler from "../utils/CustomErrorHandler.js";
+import CustomErrorHandler from "../utils/CustomErrorHandler";
 
 interface returnType {
     imageHotlink: string,

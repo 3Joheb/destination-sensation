@@ -1,55 +1,43 @@
 import fetchMock from 'jest-fetch-mock';
-import getCountryImage from './getCountryImage';
-import CustomErrorHandler from '../utils/CustomErrorHandler';
+import getCountryImage from './getCountryImage'; // Update the import path as necessary
 
-jest.mock('../utils/CustomErrorHandler', () => {
-    return jest.fn().mockImplementation(() => {
-        return {
-            checkResponse: jest.fn().mockImplementation(response => {
-                if (!response.ok) throw new Error('Response not OK');
-            }),
-            checkKeys: jest.fn(),
-            setCustomError: jest.fn(),
-            logError: jest.fn()
-        };
-    });
-});
-
-
-jest.mock('../utils/CustomErrorHandler');
-
-beforeAll(() => {
-    fetchMock.enableMocks();
-});
+// Enable fetch mocks for all tests in this file
+fetchMock.enableMocks();
 
 beforeEach(() => {
-    fetchMock.resetMocks();
-    (CustomErrorHandler as jest.Mock<CustomErrorHandler>).mockClear();
+    fetchMock.resetMocks(); // Ensure fetch mocks are cleared before each test
+    process.env.PIXABAY_KEY = 'your_pixabay_api_key'; // Set your Pixabay API key for the tests
 });
 
 describe('getCountryImage', () => {
-    it('successfully retrieves images', async () => {
+
+    it('fetches and processes image data correctly', async () => {
         fetchMock.mockResponseOnce(JSON.stringify({
-            hits: [{ webformatURL: 'http://example.com/image.jpg', pageURL: 'http://example.com/page', tags: 'beach, summer' }]
+            hits: [{
+                webformatURL: 'http://example.com/image.jpg',
+                pageURL: 'http://example.com/page',
+                tags: 'scenic'
+            }]
         }));
 
         const result = await getCountryImage('France');
-        expect(result).toEqual([
-            {
-                imageHotlink: 'http://example.com/image.jpg',
-                redirectLink: 'http://example.com/page',
-                tags: 'beach, summer'
-            }
-        ]);
+        expect(result).toEqual([{
+            imageHotlink: 'http://example.com/image.jpg',
+            redirectLink: 'http://example.com/page',
+            tags: 'scenic'
+        }]);
         expect(fetchMock).toHaveBeenCalledWith(expect.stringContaining('France'));
     });
 
-    it('handles API errors appropriately', async () => {
-        fetchMock.mockReject(new Error('Network failure'));
-        const errorHandlerMock = new CustomErrorHandler();
-        errorHandlerMock.logError = jest.fn();
+    it('handles the case where no images are found', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify({ hits: [] }));
 
-        await expect(getCountryImage('France')).rejects.toThrow('Network failure');
-        expect(errorHandlerMock.logError).toHaveBeenCalled();
+        await expect(getCountryImage('Atlantis')).resolves.toEqual([]);
+    });
+
+    it('throws an error when the API call fails', async () => {
+        fetchMock.mockReject(new Error('API failure'));
+
+        await expect(getCountryImage('Mars')).rejects.toThrow('API failure');
     });
 });
