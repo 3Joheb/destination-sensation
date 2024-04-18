@@ -1,5 +1,5 @@
-import CustomErrorHandler from "../utils/CustomErrorHandler.js";
-import { AmadeusOAuth2Token } from "../helpers/getAuthToken.js";
+import CustomErrorHandler from "../utils/CustomErrorHandler";
+import { AmadeusOAuth2Token } from "../helpers/getAuthToken";
 
 
 export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
@@ -32,7 +32,7 @@ export default async (auth: AmadeusOAuth2Token, lon: string, lat: string) => {
                     short: act.shortDescription,
                     full: act.description
                 },
-                rating: [act.rating || null], // May be no rating
+                rating: act.rating || null, // May be no rating
                 pictures: act.pictures,
                 price: act.price
             }

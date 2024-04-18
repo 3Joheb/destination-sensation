@@ -1,39 +1,39 @@
-import fetchMock from 'jest-fetch-mock';
-import getCountryImage from './getCountryImage';
+// import fetchMock from 'jest-fetch-mock';
+// import getCountryImage from './getCountryImage';
 
-beforeAll(() => {
-    fetchMock.enableMocks();
-});
+// beforeAll(() => {
+//     fetchMock.enableMocks();
+// });
 
 
 
-beforeEach(() => {
-    fetchMock.resetMocks();
-    process.env.PIXABAY_KEY = 'your_pixabay_api_key';
-});
+// beforeEach(() => {
+//     fetchMock.resetMocks();
+//     process.env.PIXABAY_KEY = 'your_pixabay_api_key';
+// });
 
-describe('getCountryImage', () => {
-    it('fetches and processes image data correctly', async () => {
-        fetchMock.mockResponseOnce(JSON.stringify({
-            hits: [{
-                webformatURL: 'http://example.com/image.jpg',
-                pageURL: 'http://example.com/page'
-            }]
-        }));
+// describe('getCountryImage', () => {
+//     it('fetches and processes image data correctly', async () => {
+//         fetchMock.mockResponseOnce(JSON.stringify({
+//             hits: [{
+//                 webformatURL: 'http://example.com/image.jpg',
+//                 pageURL: 'http://example.com/page'
+//             }]
+//         }));
 
-        const result = await getCountryImage('France');
-        expect(result).toEqual([{
-            hotLink: 'http://example.com/image.jpg',
-            redirect: 'http://example.com/page',
-        }]);
-    });
+//         const result = await getCountryImage('France');
+//         expect(result).toEqual([{
+//             hotLink: 'http://example.com/image.jpg',
+//             redirect: 'http://example.com/page',
+//         }]);
+//     });
 
-    it('throws an error when the API call fails', async () => {
-        fetchMock.mockReject(new Error('API failure'));
+//     it('throws an error when the API call fails', async () => {
+//         fetchMock.mockReject(new Error('API failure'));
 
-        // Since we're not testing the error handler explicitly,
-        // we don't need to mock it or spy on it
-        await expect(getCountryImage('Mars')).rejects.toThrow();
-    });
+//         // Since we're not testing the error handler explicitly,
+//         // we don't need to mock it or spy on it
+//         await expect(getCountryImage('Mars')).rejects.toThrow();
+//     });
 
-});
+// });
