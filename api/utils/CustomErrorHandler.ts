@@ -2,14 +2,6 @@
  * Class representing a custom error handler.
  */
 export default class CustomErrorHandler {
-    static mockImplementation(arg0: () => {
-        checkResponse: jest.Mock<any, any, any>; setCustomError: jest.Mock<any, any, any>; checkKeys: jest.Mock<any, any, any>; logError: jest.Mock<any, any, any>; /**
- * Checks if the fetch response is okay.
- * @param {Response} response - The fetch response object.
- * @throws {Error} Throws an error if the response is not ok.
- */ }) {
-        throw new Error('Method not implemented.');
-    }
     /**
      * Object to store error information.
      */
