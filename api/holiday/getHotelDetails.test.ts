@@ -7,7 +7,6 @@ beforeAll(() => {
 
 beforeEach(() => {
     fetchMock.resetMocks();
-    process.env.PIXABAY_KEY = 'your_pixabay_api_key';
 });
 
 describe('getHotelDetails', () => {
@@ -20,49 +19,71 @@ describe('getHotelDetails', () => {
                         "type": "hotel",
                         "hotelId": "SIOPO454",
                         "chainCode": "SI",
-                        "dupeId": "700031300",
+                        "dupeId": "700012575",
                         "name": "Sheraton Porto Hotel and Spa",
-                        "cityCode": "LON",
+                        "cityCode": "OPO",
                         "latitude": 41.16105,
                         "longitude": -8.6404
                     },
                     "available": true,
                     "offers": [
                         {
-                            "id": "ACBIXU0GYZ",
-                            "checkInDate": "2024-05-05",
-                          "checkOutDate": "2024-05-17",
+                            "id": "5ZTR5H2GUN",
+                            "checkInDate": "2024-04-20",
+                            "checkOutDate": "2024-04-21",
                             "rateCode": "S9R",
                             "rateFamilyEstimated": {
                                 "code": "SRS",
                                 "type": "C"
                             },
                             "room": {
-                                "type": {
-                                  "category": "DELUXE_ROOM",
-                                  "beds": 1,
-                                  "bedType": "QUEEN"
+                                "type": "XMI",
+                                "typeEstimated": {
+                                    "category": "DELUXE_ROOM",
+                                    "beds": 1,
+                                    "bedType": "QUEEN"
                                 },
                                 "description": {
-                                  "text": "Prepay Non-refundable, changes up to 7 days prior to stay\nDeluxe Room, 1 Queen(s), 32sqm/344sqft,\nWireless internet, complimentary, Wired",
-                                  "lang": "EN"
+                                    "text": "Marriott Senior Discount, includes\nDeluxe Room, 1 Queen(s), 32sqm/344sqft,\nWireless internet, complimentary, Wired",
+                                    "lang": "EN"
                                 }
-                              },
+                            },
                             "guests": {
                                 "adults": 1
                             },
                             "price": {
-                                "baseAverage": "181.17",
-                                "currency": "EUR"
-                              },
-                            "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers/ACBIXU0GYZ"
+                                "currency": "EUR",
+                                "base": "144.00",
+                                "total": "146.00",
+                                "variations": {
+                                    "average": {
+                                        "base": "144.00"
+                                    },
+                                    "changes": [
+                                        {
+                                            "startDate": "2024-04-20",
+                                            "endDate": "2024-04-21",
+                                            "base": "144.00"
+                                        }
+                                    ]
+                                }
+                            },
+                            "policies": {
+                                "cancellations": [
+                                    {
+                                        "deadline": "2024-04-19T23:59:00+01:00",
+                                        "amount": "146.00"
+                                    }
+                                ],
+                                "paymentType": "guarantee"
+                            },
+                            "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers/5ZTR5H2GUN"
                         }
                     ],
-                    "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=MCLONGHM&adults=1"
+                    "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=SIOPO454&adults=1"
                 }
             ]
         }
-
 
         fetchMock.mockResponseOnce(JSON.stringify(mockHotelData));
 
@@ -77,39 +98,42 @@ describe('getHotelDetails', () => {
             "state": "approved",
             "scope": ""
         }, ["SIOPO454"], "2024-05-05", "2024-05-17"); // Assuming arguments
+
         expect(result).toEqual(
-                [
-                    {
-                      "hotel": {
+            [
+                {
+                    "hotel": {
                         "hotelId": "SIOPO454",
                         "name": "Sheraton Porto Hotel and Spa",
                         "lat": 41.16105,
                         "lon": -8.6404
-                      },
-                      "offers": [
+                    },
+                    "offers": [
                         {
-                          "checkInDate": "2024-05-05",
-                          "checkOutDate": "2024-05-17",
-                          "room": {
-                            "type": {
-                              "category": "DELUXE_ROOM",
-                              "beds": 1,
-                              "bedType": "QUEEN"
+                            "checkInDate": "2024-04-20",
+                            "checkOutDate": "2024-04-21",
+                            "room": {
+                                "type": {
+                                    "category": "DELUXE_ROOM",
+                                    "beds": 1,
+                                    "bedType": "QUEEN"
+                                },
+                                "description": {
+                                    "text": "Marriott Senior Discount, includes\nDeluxe Room, 1 Queen(s), 32sqm/344sqft,\nWireless internet, complimentary, Wired",
+                                    "lang": "EN"
+                                }
                             },
-                            "description": {
-                              "text": "Prepay Non-refundable, changes up to 7 days prior to stay\nDeluxe Room, 1 Queen(s), 32sqm/344sqft,\nWireless internet, complimentary, Wired",
-                              "lang": "EN"
+                            "price": {
+                                "baseAverage": "144.00",
+                                "currency": "EUR"
                             }
-                          },
-                          "price": {
-                            "baseAverage": "181.17",
-                            "currency": "EUR"
-                          }
                         }
-                      ]
-                    }
-                  ]
-                );
+                    ]
+                }
+            ]
+        );
 
     });
 });
+
+// getHotelDetails.test.ts
