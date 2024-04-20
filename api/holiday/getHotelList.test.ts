@@ -33,3 +33,32 @@ describe('getHotelList', () => {
                     
                     }]}
                 });
+
+                describe('getHotelList', () => {
+                    it('fetches and processes hotel address', async () => {
+                        fetchMock.mockResponseOnce(JSON.stringify({
+                        })
+                    );
+                });
+                            {
+                                "data"; [
+                                    "address", {
+                                        "countryCode": "FR"
+                                    }]}
+                                });
+
+                                describe('getHotelList', () => {
+                                    it('fetches and processes latitude and longitude of hotel geoCode', async () => {
+                                        fetchMock.mockResponseOnce(JSON.stringify({
+                                        })
+                                    );
+                                });
+                                            {
+                                                "data"; [
+                                                    {
+                                                        "geoCode": {
+                                                            "latitude": 48.87321,
+                                                            "longitude": 2.32541
+                                                        },
+                                                    }]}
+                                                });
