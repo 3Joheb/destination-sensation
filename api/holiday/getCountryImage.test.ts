@@ -1,9 +1,11 @@
 import fetchMock from 'jest-fetch-mock';
-import getCountryImage from './getCountryImage'; // Update the import path as necessary
+import getCountryImage from './getCountryImage';
 
 beforeAll(() => {
     fetchMock.enableMocks();
 });
+
+
 
 beforeEach(() => {
     fetchMock.resetMocks();
@@ -22,9 +24,16 @@ describe('getCountryImage', () => {
         const result = await getCountryImage('France');
         expect(result).toEqual([{
             hotLink: 'http://example.com/image.jpg',
-            redirect: 'http://example.com/page'
+            redirect: 'http://example.com/page',
         }]);
     });
 
+    it('throws an error when the API call fails', async () => {
+        fetchMock.mockReject(new Error('API failure'));
+
+        // Since we're not testing the error handler explicitly,
+        // we don't need to mock it or spy on it
+        await expect(getCountryImage('Mars')).rejects.toThrow();
+    });
 
 });
