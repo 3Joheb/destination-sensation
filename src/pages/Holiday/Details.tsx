@@ -15,31 +15,31 @@ const HolidayDetails = () => {
         "M": " mins" // Replace "M" with " mins"
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // Clients current url
-            const url = new URL(window.location.href)
-            const searchParm = url.searchParams
-
-            // Send request to backend
-            try {
-                const response = await fetch(`/api/holiday?${searchParm}`)
-                const result = await response.json()
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data') // Maybe show GUI feedback
+    /*     useEffect(() => {
+            const fetchData = async () => {
+                // Clients current url
+                const url = new URL(window.location.href)
+                const searchParm = url.searchParams
+    
+                // Send request to backend
+                try {
+                    const response = await fetch(`/api/holiday?${searchParm}`)
+                    const result = await response.json()
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data') // Maybe show GUI feedback
+                    }
+    
+                    setActivites(result.activities)
+                    setFlight(result.flightDetails)
+                    setImages(result.images)
+                    setIsLoading(false)
+                } catch (error) {
+                    console.error('Error fetching data:', error);
                 }
-
-                setActivites(result.activities)
-                setFlight(result.flightDetails)
-                setImages(result.images)
-                setIsLoading(false)
-            } catch (error) {
-                console.error('Error fetching data:', error);
             }
-        }
-
-        fetchData()
-    }, [])
+    
+            fetchData()
+        }, []) */
 
     return (
         <div className="mx-4 flex flex-col gap-20">
