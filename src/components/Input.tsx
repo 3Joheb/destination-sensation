@@ -24,9 +24,8 @@ const Input = () => {
 
     return (
         <div className="">
-            <h2>Fill in the form to find your dream holiday</h2>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-96">
-                <div className="flex justify-between">
+            <form onSubmit={handleSubmit} className="input-container">
+                <div className="">
                     <label htmlFor="origin">From</label>
                     <input
                         type="text"
@@ -35,29 +34,35 @@ const Input = () => {
                         onChange={(e) => setOrigin(e.target.value)}
                     />
                 </div>
-                <div className="flex justify-between">
-                    <label htmlFor="endDate">EndDate</label>
+                <div className="date-picker">
+                    <label htmlFor="endDate">End Date</label>
                     <DatePicker
+                        className="order-2"
                         selected={endDate}
                         onChange={(date: Date | null) => date !== null && setEndDate(date)}
                         dateFormat="dd/MM/yyyy"
                     />
                 </div>
 
-                <div className="flex justify-between">
-                    <label htmlFor="budget">Budget (50-1,000):</label>
+                <div className="">
+                    <label htmlFor="budget">Budget (€50-1,000):</label>
                     <input
                         type="range"
                         id="budget"
-                        min={50}
+                        min={0}
                         max={1000}
                         step={10}
                         value={budget}
-                        onChange={(e) => setBudget(parseInt(e.target.value))}
+                        onChange={(e) => {
+                            if (parseInt(e.target.value) <= 50) {
+                                e.target.value = '50'
+                            }
+                            setBudget(parseInt(e.target.value))
+                        }}
                     />
-                    <p>{budget}</p>
+                    <p>€{budget}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="">
                     <label htmlFor="numberOfPeople">Number Of People (1-8):</label>
                     <select
                         id="numberOfPeople"
@@ -69,7 +74,7 @@ const Input = () => {
                         ))}
                     </select>
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" className="bg-sky-400 text-white w-24">Submit</button>
             </form>
         </div>
     )

@@ -26,7 +26,7 @@ export default () => {
                     <span>Venice</span>
                 </div>
             </div>
-            <p className="text-center text-2xl mt-8">You could be heading to one of these places. Fill the form to find your holiday!</p>
+            <p className="text-center text-2xl mt-8">You could be heading to one of these places. <br /> Fill the form to find your holiday!</p>
             <Input />
         </div>
     )
