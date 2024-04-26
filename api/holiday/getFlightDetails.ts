@@ -22,11 +22,13 @@ export default async (
 
     try {
         const response = await fetch(fetchUrl, fetchOptions);
+
         errorHandler.checkResponse(response)
 
         const result = await response.json();
         const data = result.data
         errorHandler.checkKeys(data[0], ['lastTicketingDate', 'itineraries', 'price'])
+
 
         const cleanData = data.map((flight: any) => {
             return {

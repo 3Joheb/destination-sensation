@@ -17,17 +17,19 @@ const getCountryImage = async (country: string, city?: string, subdivision?: str
     const key = process.env.PIXABAY_KEY;
 
     // Ensure strings have no spaces
-    country = encodeURIComponent(country);
+    country = country;
     subdivision = subdivision ? encodeURIComponent(subdivision) : ''
     city = city ? encodeURIComponent(city) : subdivision;
 
     // Construct URL for Pixabay API request
     const baseUrl = 'https://pixabay.com/api/';
-    const query = `${country}`
+    const query = `portugal`
     const colors = `grayscale`
     const category = `landscape`
 
+
     const url = `${baseUrl}?key=${key}&q=${query}&category=${category}&colors${colors}`;
+    console.log(url)
 
     // Initialise error handler
     const errorHandler = new CustomErrorHandler();

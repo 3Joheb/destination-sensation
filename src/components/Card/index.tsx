@@ -2,7 +2,7 @@ import PixabayLogo from '../../assets/pixabay.svg'
 
 interface Cardinterface {
     origin: { iata: string }
-    destination: string
+    destination: { iata: string, city: string }
     price: string
     departureDate: string
     returnDate: string
@@ -17,7 +17,7 @@ const Card = ({ origin, destination, price, departureDate, returnDate, image }: 
         // Redirect to holiday details
         console.log('redirecting')
 
-        const url = `/holiday/details?origin=${origin.iata}&destination=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&maxPrice=${price}`
+        const url = `/holiday/details?origin=${origin.iata}&destination=${destination.iata}&departureDate=${departureDate}&returnDate=${returnDate}&maxPrice=${price}`
         window.location.href = url
     }
 
@@ -31,7 +31,7 @@ const Card = ({ origin, destination, price, departureDate, returnDate, image }: 
                 </a>
             </div>
             <div className='flex flex-col gap-2'>
-                <h1 className='w-64 text-3xl font-medium'>{destination}</h1>
+                <h1 className='w-64 text-3xl font-medium'>{destination.city}</h1>
                 <ul className='flex justify-between font-medium text-neutral-600'>
                     <li>{departureDate}</li>
                     <li>{returnDate}</li>

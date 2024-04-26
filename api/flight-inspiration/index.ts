@@ -61,7 +61,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 holiday.destination.country = airport.country
                 holiday.destination.city = airport.city
                 holiday.destination.subdivision = airport.subd
-                holiday.image.hotLink = image.imageHotlink
+                holiday.image.hotLink = image.hotLink
                 holiday.image.redirect = image.redirectLink
 
                 holiday.origin = {}

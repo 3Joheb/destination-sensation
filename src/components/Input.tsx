@@ -57,7 +57,7 @@ const Input = () => {
                             if (parseInt(e.target.value) <= 50) {
                                 e.target.value = '50'
                             }
-                            setBudget(parseInt(e.target.value))
+                            setBudget(Math.round(parseInt(e.target.value)))
                         }}
                     />
                     <p>€{budget}</p>

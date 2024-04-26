@@ -1,7 +1,7 @@
 import CustomErrorHandler from "../utils/CustomErrorHandler.js";
 
 interface returnType {
-    imageHotlink: string,
+    hotLink: string,
     redirectLink: string,
     tags: string
 }
@@ -52,7 +52,7 @@ const getCountryImage = async (country: string, city?: string, subdivision?: str
 
         // Return relevant image data and return
         return {
-            imageHotlink: imgData.webformatURL,
+            hotLink: imgData.webformatURL,
             redirectLink: imgData.pageURL,
             tags: imgData.tags
         };

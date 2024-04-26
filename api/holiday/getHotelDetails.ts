@@ -22,6 +22,8 @@ export default async (
     // Build the URL with inputted parameters
     const url = `${baseUrl}?${urlParams.toString()}`;
 
+    console.log(url)
+
     const options: RequestInit = {
         headers: {
             'Authorization': `${auth['token_type']} ${auth['access_token']}`
@@ -32,9 +34,11 @@ export default async (
 
     try {
         const hotelReq = await fetch(url, options);
+
         errorHandler.checkResponse(hotelReq);
 
         const hotelsRes = await hotelReq.json();
+
         const hotelsData = hotelsRes.data
 
         // Assume other objects follow same schema as first element
